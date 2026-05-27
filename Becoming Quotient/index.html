@@ -341,35 +341,39 @@
     width:100%;height:100%;border:0;display:block;background:var(--bg);
   }
 
-  /* Document credit line — matches the inner footer style used in Brand/Verbal */
-  .doc-credit{
-    margin-top:96px;padding:24px 0;
-    border-top:1px solid var(--line);
-    font-family:var(--font-body);font-size:13px;
-    color:var(--ink-soft);
-  }
-  .doc-credit a{
-    color:inherit;text-decoration:underline;
-    text-underline-offset:3px;
-    text-decoration-color:rgba(26,26,26,0.25);
-  }
-
-  /* Everything Design centered credit footer */
-  .ed-footer{
-    text-align:center;
-    padding:48px 24px 32px;
-    margin-top:0;
+  /* ─── Unified BQ footer ────────────────────────────────────── */
+  .bq-footer{
+    margin-top:96px;padding:28px 0 32px;
     border-top:1px solid var(--line);
     font-family:var(--font-body);
-    font-size:11px;font-weight:500;
-    letter-spacing:.22em;text-transform:uppercase;
-    color:var(--ink-soft);
+    font-size:12px;color:var(--ink-soft);
+    display:flex;flex-direction:column;gap:6px;
   }
-  .ed-footer a{
-    color:inherit;text-decoration:none;
-    transition:color .15s;
+  .bq-footer-row{
+    display:flex;justify-content:space-between;align-items:baseline;
+    flex-wrap:wrap;gap:8px 24px;
   }
-  .ed-footer a:hover{color:var(--accent)}
+  .bq-footer-row .bq-title{
+    font-weight:500;color:var(--ink);
+    letter-spacing:0;
+  }
+  .bq-footer-row .bq-partner a{
+    color:var(--ink);font-weight:500;text-decoration:underline;
+    text-underline-offset:3px;
+    text-decoration-color:rgba(26,26,26,0.25);
+    transition:color .15s, text-decoration-color .15s;
+  }
+  .bq-footer-row .bq-partner a:hover{
+    color:var(--accent);
+    text-decoration-color:var(--accent);
+  }
+  .bq-footer-meta{
+    display:flex;gap:14px;flex-wrap:wrap;
+    font-variant-numeric:tabular-nums;
+    color:var(--ink-soft);opacity:.85;
+    font-size:11px;letter-spacing:.04em;
+  }
+  .bq-footer-meta .sep{opacity:.4}
 
   /* Hide the original tab/subnav-wrap relics if present */
   .tabs.legacy, .subnav-wrap.legacy{display:none !important}
@@ -504,11 +508,18 @@
     <div data-region="treatment"></div>
   </section>
 
-  <div class="doc-credit">
-    Crafted by Everything Design &middot; <a href="mailto:hello@everything.design">hello@everything.design</a>
-  </div>
-  <footer class="ed-footer">
-    <a href="https://www.everything.design/" target="_blank" rel="noopener noreferrer">Everything Design</a>
+  <footer class="bq-footer" data-bq-footer>
+    <div class="bq-footer-row">
+      <span class="bq-title">BQ Brand Guidelines</span>
+      <span class="bq-partner">Branding Partner: <a href="https://www.everything.design/" target="_blank" rel="noopener noreferrer">Everything Design</a></span>
+    </div>
+    <div class="bq-footer-meta">
+      <span>v<span data-bq-version>1.0</span></span>
+      <span class="sep">·</span>
+      <span>Last updated <span data-bq-updated>—</span></span>
+      <span class="sep">·</span>
+      <span data-bq-relative>just now</span>
+    </div>
   </footer>
 </div>
 <div class="tab-content iframe-mode" data-tab-content="brand" hidden>
@@ -2297,20 +2308,31 @@ const FRAME_SHIM = `
   aside.sidebar{display:none !important}
   body{display:block !important; margin:0 !important}
   .content{padding:64px 80px 96px !important; max-width:1080px !important; margin:0 auto !important}
-  /* Everything Design credit footer (injected) */
-  .ed-footer{
-    text-align:center;
-    padding:48px 24px 32px;
-    margin:48px auto 0;
-    max-width:1080px;
-    border-top:1px solid rgba(3,22,29,0.10);
+  /* Hide the inner doc's own footer; we inject a unified one */
+  .content > .footer{display:none !important}
+
+  /* Unified BQ footer */
+  .bq-footer{
+    margin:96px auto 0;padding:28px 0 32px;
+    border-top:1px solid rgba(26,26,26,0.10);
     font-family:'Indivisible', system-ui, -apple-system, sans-serif;
-    font-size:11px;font-weight:500;
-    letter-spacing:.22em;text-transform:uppercase;
-    color:rgba(3,22,29,0.55);
+    font-size:12px;color:rgba(26,26,26,0.65);
+    display:flex;flex-direction:column;gap:6px;max-width:1080px;
   }
-  .ed-footer a{color:inherit;text-decoration:none;transition:color .15s}
-  .ed-footer a:hover{color:#022781}
+  .bq-footer-row{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px 24px}
+  .bq-footer-row .bq-title{font-weight:500;color:#1A1A1A}
+  .bq-footer-row .bq-partner a{
+    color:#1A1A1A;font-weight:500;text-decoration:underline;
+    text-underline-offset:3px;text-decoration-color:rgba(26,26,26,0.25);
+    transition:color .15s, text-decoration-color .15s;
+  }
+  .bq-footer-row .bq-partner a:hover{color:#022781;text-decoration-color:#022781}
+  .bq-footer-meta{
+    display:flex;gap:14px;flex-wrap:wrap;
+    font-variant-numeric:tabular-nums;font-size:11px;letter-spacing:.04em;
+    color:rgba(26,26,26,0.6);
+  }
+  .bq-footer-meta .sep{opacity:.4}
 </style>
 <script>
   window.addEventListener('message', function(e){
@@ -2319,30 +2341,44 @@ const FRAME_SHIM = `
       var el = document.getElementById(msg.id);
       if (el){ el.scrollIntoView({behavior:'smooth', block:'start'}); }
     }
+    if (msg.type === 'bq-footer-update'){
+      var v = document.querySelector('[data-bq-version]');
+      var d = document.querySelector('[data-bq-updated]');
+      var r = document.querySelector('[data-bq-relative]');
+      if (v && msg.version) v.textContent = msg.version;
+      if (d && msg.updated) d.textContent = msg.updated;
+      if (r && msg.relative) r.textContent = msg.relative;
+    }
   });
-  // Notify parent on hash change inside iframe
   window.addEventListener('hashchange', function(){
     parent.postMessage({type:'iframe-section', id: location.hash.slice(1)}, '*');
   });
-  // Inject Everything Design footer at the end of body
-  function _injectEdFooter(){
-    if (document.querySelector('.ed-footer')) return;
+  function _injectBqFooter(){
+    if (document.querySelector('[data-bq-footer]')) return;
     var f = document.createElement('footer');
-    f.className = 'ed-footer';
-    var a = document.createElement('a');
-    a.href = 'https://www.everything.design/';
-    a.target = '_blank';
-    a.rel = 'noopener noreferrer';
-    a.textContent = 'Everything Design';
-    f.appendChild(a);
-    // Place inside .content if present so it inherits the container width, else body
+    f.className = 'bq-footer';
+    f.setAttribute('data-bq-footer', '');
+    f.innerHTML =
+      '<div class="bq-footer-row">' +
+        '<span class="bq-title">BQ Brand Guidelines</span>' +
+        '<span class="bq-partner">Branding Partner: <a href="https://www.everything.design/" target="_blank" rel="noopener noreferrer">Everything Design</a></span>' +
+      '</div>' +
+      '<div class="bq-footer-meta">' +
+        '<span>v<span data-bq-version>1.0</span></span>' +
+        '<span class="sep">·</span>' +
+        '<span>Last updated <span data-bq-updated>—</span></span>' +
+        '<span class="sep">·</span>' +
+        '<span data-bq-relative>just now</span>' +
+      '</div>';
     var host = document.querySelector('.content') || document.body;
     host.appendChild(f);
+    // Ask parent for the current live values
+    parent.postMessage({type:'bq-footer-request'}, '*');
   }
   if (document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', _injectEdFooter);
+    document.addEventListener('DOMContentLoaded', _injectBqFooter);
   } else {
-    _injectEdFooter();
+    _injectBqFooter();
   }
 <\/script>
 `;
@@ -2462,7 +2498,7 @@ renderSubNav('visual');
   }
 })();
 
-// React to iframe-internal hash changes (so the parent URL stays in sync)
+// React to iframe-internal hash changes + footer-request handshakes
 window.addEventListener('message', function(e){
   const msg = e.data || {};
   if (msg.type === 'iframe-section' && msg.id){
@@ -2475,8 +2511,83 @@ window.addEventListener('message', function(e){
       });
     }
   }
+  if (msg.type === 'bq-footer-request' && e.source){
+    e.source.postMessage({type:'bq-footer-update', ...BQ_FOOTER_STATE}, '*');
+  }
 });
 
+// ──────────────────────────────────────────────────────────────────
+// Live footer: fetch version (commit count) + last-updated date from GitHub
+// ──────────────────────────────────────────────────────────────────
+const BQ_REPO = 'EverythingDesign/Brand-Guidelines';
+const BQ_FOOTER_STATE = { version: '1.0', updated: '—', relative: 'just now', _lastDate: null };
+
+function bqFormatDate(d){
+  return d.toLocaleDateString('en-GB', {day:'2-digit', month:'short', year:'numeric'});
+}
+function bqRelative(d){
+  const ms = Date.now() - d.getTime();
+  const s = Math.floor(ms/1000);
+  if (s < 30)   return 'just now';
+  if (s < 60)   return s + 's ago';
+  const m = Math.floor(s/60);
+  if (m < 60)   return m + ' min ago';
+  const h = Math.floor(m/60);
+  if (h < 24)   return h + ' hr ago';
+  const d2 = Math.floor(h/24);
+  if (d2 < 30)  return d2 + ' day' + (d2===1?'':'s') + ' ago';
+  const mo = Math.floor(d2/30);
+  if (mo < 12)  return mo + ' mo ago';
+  const y = Math.floor(mo/12);
+  return y + ' yr' + (y===1?'':'s') + ' ago';
+}
+
+function applyFooterState(){
+  document.querySelectorAll('[data-bq-version]').forEach(n => n.textContent = BQ_FOOTER_STATE.version);
+  document.querySelectorAll('[data-bq-updated]').forEach(n => n.textContent = BQ_FOOTER_STATE.updated);
+  document.querySelectorAll('[data-bq-relative]').forEach(n => n.textContent = BQ_FOOTER_STATE.relative);
+  // Broadcast to any loaded iframes
+  ['frame-brand','frame-verbal'].forEach(id => {
+    const f = document.getElementById(id);
+    if (f && f.contentWindow){
+      try { f.contentWindow.postMessage({type:'bq-footer-update', ...BQ_FOOTER_STATE}, '*'); } catch(_){}
+    }
+  });
+}
+
+function refreshRelative(){
+  if (!BQ_FOOTER_STATE._lastDate) return;
+  BQ_FOOTER_STATE.relative = bqRelative(BQ_FOOTER_STATE._lastDate);
+  applyFooterState();
+}
+
+async function fetchLiveFooter(){
+  try {
+    const r = await fetch(`https://api.github.com/repos/${BQ_REPO}/commits?per_page=1`);
+    if (!r.ok) throw new Error('http ' + r.status);
+    // Total commit count via Link header (rel="last")
+    const link = r.headers.get('Link') || '';
+    const m = link.match(/[?&]page=(\d+)>;\s*rel="last"/);
+    const count = m ? parseInt(m[1], 10) : 1;
+    const data = await r.json();
+    const dateStr = data[0] && data[0].commit && data[0].commit.author && data[0].commit.author.date;
+    const date = dateStr ? new Date(dateStr) : new Date();
+    BQ_FOOTER_STATE.version = '1.' + count;
+    BQ_FOOTER_STATE.updated = bqFormatDate(date);
+    BQ_FOOTER_STATE._lastDate = date;
+    BQ_FOOTER_STATE.relative = bqRelative(date);
+    applyFooterState();
+  } catch (err){
+    // graceful fallback — leave baked defaults; still show today as updated
+    BQ_FOOTER_STATE.updated = bqFormatDate(new Date());
+    BQ_FOOTER_STATE._lastDate = new Date();
+    BQ_FOOTER_STATE.relative = bqRelative(BQ_FOOTER_STATE._lastDate);
+    applyFooterState();
+  }
+}
+
+fetchLiveFooter();
+setInterval(refreshRelative, 30000); // tick relative time every 30s
 </script>
 </body>
 </html>
