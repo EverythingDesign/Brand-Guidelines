@@ -1,0 +1,27 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "everything-design-skills",
+  "description": "Skills and workflows by Everything Design — brand guideline scaffolding, design system helpers, and more.",
+  "owner": {
+    "name": "Everything Design",
+    "email": "hello@everything.design",
+    "url": "https://www.everything.design/"
+  },
+  "plugins": [
+    {
+      "name": "brand-guideline",
+      "description": "Create a single-file HTML brand guideline (Visual / Brand Strategy / Verbal Identity tabs) with sidebar sub-nav, live version footer, and optional GitHub Pages publishing.",
+      "author": {
+        "name": "Everything Design"
+      },
+      "category": "design",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/EverythingDesign/Brand-Guidelines.git",
+        "path": "plugin",
+        "ref": "main"
+      },
+      "homepage": "https://github.com/EverythingDesign/Brand-Guidelines/tree/main/plugin"
+    }
+  ]
+}

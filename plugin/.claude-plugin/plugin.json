@@ -1,0 +1,11 @@
+{
+  "name": "brand-guideline",
+  "version": "1.0.0",
+  "description": "Create a single-file HTML brand guideline (Visual / Brand Strategy / Verbal Identity tabs) with sidebar sub-nav, live version footer, and optional GitHub Pages publishing. Modeled on the Becoming Quotient (BQ) brand book.",
+  "author": {
+    "name": "Everything Design",
+    "email": "hello@everything.design",
+    "url": "https://www.everything.design/"
+  },
+  "homepage": "https://github.com/EverythingDesign/Brand-Guidelines"
+}
