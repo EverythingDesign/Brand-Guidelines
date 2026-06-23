@@ -585,7 +585,7 @@ const dlIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strok
 function logoCard(m, cls, caption, dispKey, dlVariant){
   const file = `BQ_${m.label}-Logo_${dlVariant}.png`;
   const dl = LOGO_DOWNLOAD[file]
-    ? `<a class="logo-dl-btn" href="${LOGO_DOWNLOAD[file]}" download="${file}">${dlIcon}Download ${m.label} Logo Here</a>`
+    ? `<a class="logo-dl-btn" href="${file}" download="${file}">${dlIcon}Download ${m.label} Logo Here</a>`
     : '';
   return `<div class="logo-card ${cls}"><span class="caption">${caption}</span>${dl}
         <img src="${LOGO_DISPLAY[dispKey]}" alt="${m.label} logo — ${caption}"></div>`;
