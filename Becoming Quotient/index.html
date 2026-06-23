@@ -927,7 +927,7 @@ const BRAND_HTML = `<!doctype html>
   .quotes-frame-label{font-family:var(--font-eyebrow);font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
   .quotes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
   .quote-card{padding:14px;border:1px solid var(--line);border-radius:8px;background:#FBFAF5}
-  .quote-body{font-size:14px;line-height:1.5;color:var(--ink);font-style:italic;margin-bottom:8px}
+  .quote-body{font-size:14px;line-height:1.5;color:var(--ink);margin-bottom:8px}
   .quote-body::before{content:"\\201C"}
   .quote-body::after{content:"\\201D"}
   .quote-source{font-family:var(--font-eyebrow);font-size:11px;letter-spacing:.10em;text-transform:uppercase;color:var(--muted);font-weight:500}
@@ -2272,7 +2272,7 @@ set("[data-region='mc-body']", \`
         </div>\`;
       }).join("");
     } else {
-      const pattern = cat.pattern ? \`<div class="mc-block-body" style="font-style:italic">\${esc(cat.pattern)}</div>\` : "";
+      const pattern = cat.pattern ? \`<div class="mc-block-body">\${esc(cat.pattern)}</div>\` : "";
       const notList = cat.not ? \`<div class="mc-list mc-not">
           <div class="mc-list-label">Not</div>
           \${cat.not.map(l => \`<div class="mc-line">\${esc(l)}</div>\`).join("")}
