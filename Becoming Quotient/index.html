@@ -190,8 +190,11 @@
   .specimen{padding:24px 0;border-top:1px solid var(--line)}
   .specimen:first-child{border-top:0;padding-top:0}
   .spec-meta{display:flex;gap:16px;font-size:11px;letter-spacing:.1em;
-    text-transform:uppercase;color:var(--ink-soft);margin-bottom:14px}
+    text-transform:uppercase;color:var(--ink-soft);margin-bottom:14px;
+    align-items:center;flex-wrap:wrap}
   .spec-meta .dot{opacity:.4}
+  .spec-dl{display:inline-flex;gap:6px;margin-left:auto;flex-wrap:wrap}
+  .spec-dl-btn{position:static;top:auto;right:auto;letter-spacing:.04em}
   .spec-show{margin:0;line-height:1.1;letter-spacing:-0.01em;font-style:normal}
   .glyphs{font-size:14px;line-height:1.6;color:var(--ink-soft);margin-top:10px;
     font-variant-numeric:tabular-nums;letter-spacing:.04em}
@@ -504,7 +507,6 @@
     <h2>P22 Mackinac &amp; <span class="accent">Indivisible.</span></h2>
     <p class="lede">A warm humanist serif for the things we want remembered. A precise geometric sans for the things we want read. They share the same weight class, so they read as one voice.</p>
     <div data-region="typography"></div>
-    <div class="dl-strip" data-dl="Typefaces"></div>
   </section>
 
   <section class="section" id="image">
@@ -676,6 +678,12 @@ qPE.innerHTML = `<div class="pal-ext">${
 }</div>`;
 
 // ─── TYPOGRAPHY SECTION ──────────────────────────────────────────────
+function fontDl(key, label){
+  const f = FONTS[key];
+  return f
+    ? `<a class="logo-dl-btn spec-dl-btn" href="${f.uri}" download="${f.filename}">${dlIcon}Download ${label}</a>`
+    : '';
+}
 const qT = document.querySelector("[data-region='typography']");
 qT.innerHTML = `
   <div class="specimen">
@@ -683,6 +691,7 @@ qT.innerHTML = `
       <span>Display</span><span class="dot">·</span>
       <span>P22 Mackinac</span><span class="dot">·</span>
       <span>Book &amp; Medium</span>
+      <span class="spec-dl">${fontDl('mack_book','Book')}${fontDl('mack_med','Medium')}</span>
     </div>
     <div class="spec-show" style="font-family:var(--font-display);font-size:88px;font-weight:400">Aa Bb Qq</div>
     <div class="spec-show" style="font-family:var(--font-display);font-size:36px;font-weight:400;margin-top:14px">
@@ -696,6 +705,7 @@ qT.innerHTML = `
       <span>Body</span><span class="dot">·</span>
       <span>Indivisible</span><span class="dot">·</span>
       <span>Regular · Medium · Bold</span>
+      <span class="spec-dl">${fontDl('indiv_reg','Regular')}${fontDl('indiv_med','Medium')}${fontDl('indiv_bold','Bold')}</span>
     </div>
     <div class="spec-show" style="font-family:var(--font-body);font-size:88px;font-weight:500;letter-spacing:-0.02em">Aa Bb Qq</div>
     <div style="margin-top:18px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px">
