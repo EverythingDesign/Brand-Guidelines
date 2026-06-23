@@ -112,6 +112,15 @@
   .logo-card.dark .caption{background:rgba(0,0,0,.55);color:#fff}
   .logo-card.blue .caption{background:rgba(255,255,255,.18);color:#fff;
     backdrop-filter:blur(4px)}
+  .logo-set-head{display:flex;align-items:flex-start;justify-content:space-between;
+    gap:16px;flex-wrap:wrap;margin-bottom:16px}
+  .logo-set-head .h3-purpose{margin-bottom:0}
+  .logo-dl-btn{display:inline-flex;align-items:center;gap:7px;flex-shrink:0;
+    white-space:nowrap;padding:8px 14px;border:1px solid var(--accent);border-radius:4px;
+    font-size:12px;font-weight:500;color:var(--accent);text-decoration:none;
+    background:transparent;transition:background .15s, color .15s}
+  .logo-dl-btn:hover{background:var(--accent);color:#fff}
+  .logo-dl-btn svg{width:14px;height:14px;flex-shrink:0}
 
   .catch-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .catch-card{position:relative;border-radius:6px;overflow:hidden;
@@ -575,8 +584,16 @@ function isDark(hex){
 const qLogo = document.querySelector("[data-region='logo']");
 qLogo.innerHTML = Object.entries(LOGO_SETS).map(([k,m]) => `
   <div>
-    <div class="h3">${m.label}</div>
-    <div class="h3-purpose">${m.purpose}</div>
+    <div class="logo-set-head">
+      <div>
+        <div class="h3">${m.label}</div>
+        <div class="h3-purpose">${m.purpose}</div>
+      </div>
+      <a class="logo-dl-btn" href="${LOGO_DOWNLOAD['BQ_'+m.label+'-Logo_Blue.png']}" download="BQ_${m.label}-Logo_Blue.png">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download ${m.label} Logo Here
+      </a>
+    </div>
     <div class="logo-row">
       <div class="logo-card light"><span class="caption">On light</span>
         <img src="${LOGO_DISPLAY[k+'_on_light']}" alt="${m.label} logo on light"></div>
