@@ -451,7 +451,6 @@
     <h2>The phrase, <span class="accent">as a mark.</span></h2>
     <p class="lede">“What an opportunity” is BQ’s signature phrase — and a mark in its own right. It locks up inside the same quote-frame as the logo. Use it on hero surfaces, campaign artwork, and anywhere the brand wants to speak in its own voice.</p>
     <div data-region="catchphrase"></div>
-    <div class="dl-strip" data-dl="Catchphrase"></div>
   </section>
 
   <section class="section" id="construction">
@@ -602,21 +601,30 @@ qLogo.innerHTML = Object.entries(LOGO_SETS).map(([k,m]) => `
   </div>`).join("");
 
 // ─── CATCHPHRASE SECTION ─────────────────────────────────────────────
+function catchDl(k){
+  const file = `BQ_Catchphrase_${k}.svg`;
+  return CATCH_DOWNLOAD[file]
+    ? `<a class="logo-dl-btn" href="${CATCH_DOWNLOAD[file]}" download="${file}">${dlIcon}Download SVG</a>`
+    : '';
+}
 const qCatch = document.querySelector("[data-region='catchphrase']");
 qCatch.innerHTML = `<div class="catch-grid">${
   Object.entries(CATCH_SETS).map(([k,m]) => `
     <div class="catch-card" style="background:${k.endsWith('_alt')?'#000':'var(--bg)'}">
       <span class="meta">${m.label}</span>
+      ${catchDl(k)}
       <img src="${CATCH_DISPLAY[k+'_on_light']}" alt="${m.label}">
     </div>`).join("")
 }</div>
 <div style="margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:10px">
   <div class="catch-card" style="background:var(--accent);min-height:200px;padding:36px 32px">
     <span class="meta" style="color:rgba(255,255,255,.7)">On BQ Blue</span>
+    ${catchDl('waoe_openframe')}
     <img src="${CATCH_DISPLAY['waoe_openframe_on_blue']}" alt="Catchphrase on BQ Blue" style="max-height:120px">
   </div>
   <div class="catch-card" style="background:#000;min-height:200px;padding:36px 32px">
     <span class="meta" style="color:rgba(255,255,255,.7)">On dark</span>
+    ${catchDl('wao_stacked')}
     <img src="${CATCH_DISPLAY['wao_stacked_on_blue']}" alt="Catchphrase on dark" style="max-height:120px">
   </div>
 </div>`;
