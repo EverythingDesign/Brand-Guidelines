@@ -462,8 +462,39 @@
     <div data-region="catchphrase"></div>
   </section>
 
+  <section class="section" id="typography">
+    <div class="sec-num">03 · Typography</div>
+    <h2>P22 Mackinac &amp; <span class="accent">Indivisible.</span></h2>
+    <p class="lede">A warm humanist serif for the things we want remembered. A precise geometric sans for the things we want read. They share the same weight class, so they read as one voice.</p>
+    <div data-region="typography"></div>
+  </section>
+
+  <section class="section" id="colour">
+    <div class="sec-num">04 · Colour</div>
+    <h2>Six primaries. <span class="accent">One ink.</span></h2>
+    <p class="lede">A working palette of six. Paper Beige is the default ground, BQ Ink Blue is the anchor; the four colour primaries — Yellow, Blue, Ochre, Olive — bring warmth, light, and contrast across the system.</p>
+
+    <div class="sub-label">Primary palette</div>
+    <div data-region="palette_primary"></div>
+
+    <div class="sub-label">Extended palette</div>
+    <div data-region="palette_extended"></div>
+
+    <p style="margin:20px 0 0;font-size:12px;color:var(--ink-soft);max-width:600px;line-height:1.5">
+      <span class="flag">Note</span>
+      HEX values are the source-of-truth. Match BQ Ink Blue to a physical Pantone swatch on first print and lock that value for all subsequent production.
+    </p>
+  </section>
+
+  <section class="section" id="image">
+    <div class="sec-num">05 · Image treatment</div>
+    <h2>Photo, <span class="accent">framed by the mark.</span></h2>
+    <p class="lede">BQ’s photography is real-people-led: natural light, candid expressions, no studio gloss. The brand mark frames the image — sometimes as a cutout, sometimes as a quote, always carrying the meaning of the moment.</p>
+    <div data-region="treatment"></div>
+  </section>
+
   <section class="section" id="construction">
-    <div class="sec-num">03 · Construction &amp; clear space</div>
+    <div class="sec-num">06 · Construction &amp; clear space</div>
     <h2>Built on <span class="accent">X.</span></h2>
     <p class="lede">Every mark is constructed on a unit we call <b>X</b>. The X-grid governs proportion, internal spacing, and the clear space that must surround every lockup. Keep 2X minimum on all sides.</p>
 
@@ -485,41 +516,10 @@
   </section>
 
   <section class="section" id="donts">
-    <div class="sec-num">04 · Don'ts</div>
+    <div class="sec-num">07 · Don'ts</div>
     <h2>The mark holds. <span class="accent">Don’t bend it.</span></h2>
     <p class="lede">Six ways the logo loses its meaning. The fixes are obvious; the discipline is the point.</p>
     <div data-region="donts"></div>
-  </section>
-
-  <section class="section" id="colour">
-    <div class="sec-num">05 · Colour</div>
-    <h2>Six primaries. <span class="accent">One ink.</span></h2>
-    <p class="lede">A working palette of six. Paper Beige is the default ground, BQ Ink Blue is the anchor; the four colour primaries — Yellow, Blue, Ochre, Olive — bring warmth, light, and contrast across the system.</p>
-
-    <div class="sub-label">Primary palette</div>
-    <div data-region="palette_primary"></div>
-
-    <div class="sub-label">Extended palette</div>
-    <div data-region="palette_extended"></div>
-
-    <p style="margin:20px 0 0;font-size:12px;color:var(--ink-soft);max-width:600px;line-height:1.5">
-      <span class="flag">Note</span>
-      HEX values are the source-of-truth. Match BQ Ink Blue to a physical Pantone swatch on first print and lock that value for all subsequent production.
-    </p>
-  </section>
-
-  <section class="section" id="typography">
-    <div class="sec-num">06 · Typography</div>
-    <h2>P22 Mackinac &amp; <span class="accent">Indivisible.</span></h2>
-    <p class="lede">A warm humanist serif for the things we want remembered. A precise geometric sans for the things we want read. They share the same weight class, so they read as one voice.</p>
-    <div data-region="typography"></div>
-  </section>
-
-  <section class="section" id="image">
-    <div class="sec-num">07 · Image treatment</div>
-    <h2>Photo, <span class="accent">framed by the mark.</span></h2>
-    <p class="lede">BQ’s photography is real-people-led: natural light, candid expressions, no studio gloss. The brand mark frames the image — sometimes as a cutout, sometimes as a quote, always carrying the meaning of the moment.</p>
-    <div data-region="treatment"></div>
   </section>
 
   <footer class="bq-footer" data-bq-footer>
@@ -757,7 +757,7 @@ qIm.innerHTML = `
 
 </script>
 <script>
-const SECTIONS_BY_TAB = {"visual": [{"id": "logo", "num": "01", "label": "Logo"}, {"id": "catchphrase", "num": "02", "label": "Catchphrase"}, {"id": "construction", "num": "03", "label": "Construction"}, {"id": "donts", "num": "04", "label": "Don'ts"}, {"id": "colour", "num": "05", "label": "Colour"}, {"id": "typography", "num": "06", "label": "Typography"}, {"id": "image", "num": "07", "label": "Image treatment"}], "brand": [{"id": "concept", "num": "01", "label": "Core brand concept"}, {"id": "opportunity", "num": "02", "label": "The opportunity"}, {"id": "belief", "num": "03", "label": "Brand belief"}, {"id": "narrative", "num": "04", "label": "Brand narrative"}, {"id": "purpose", "num": "05", "label": "Brand purpose"}, {"id": "vision", "num": "06", "label": "Brand vision"}, {"id": "mission", "num": "07", "label": "Brand mission"}, {"id": "transformation", "num": "08", "label": "Customer transformation"}, {"id": "identity", "num": "09", "label": "Who we are & aren’t"}, {"id": "tone", "num": "10", "label": "Tone of voice"}, {"id": "manifesto", "num": "11", "label": "Brand manifesto"}], "verbal": [{"id": "belief", "num": "01", "label": "Belief & Narrative"}, {"id": "manifesto", "num": "02", "label": "Manifesto"}, {"id": "voice", "num": "03", "label": "Voice"}, {"id": "tone", "num": "04", "label": "Tone"}, {"id": "style", "num": "05", "label": "Style choices"}, {"id": "sentence", "num": "06", "label": "Sentence structure"}, {"id": "copyBeats", "num": "07", "label": "Copy beats"}, {"id": "sampleLines", "num": "08", "label": "Sample lines"}, {"id": "grammar", "num": "09", "label": "Grammar & style"}, {"id": "wordChoices", "num": "10", "label": "Word choices"}, {"id": "microcopy", "num": "11", "label": "Microcopy"}]};
+const SECTIONS_BY_TAB = {"visual": [{"id": "logo", "num": "01", "label": "Logo"}, {"id": "catchphrase", "num": "02", "label": "Catchphrase"}, {"id": "typography", "num": "03", "label": "Typography"}, {"id": "colour", "num": "04", "label": "Colour"}, {"id": "image", "num": "05", "label": "Image treatment"}, {"id": "construction", "num": "06", "label": "Construction"}, {"id": "donts", "num": "07", "label": "Don'ts"}], "brand": [{"id": "concept", "num": "01", "label": "Core brand concept"}, {"id": "opportunity", "num": "02", "label": "The opportunity"}, {"id": "belief", "num": "03", "label": "Brand belief"}, {"id": "narrative", "num": "04", "label": "Brand narrative"}, {"id": "purpose", "num": "05", "label": "Brand purpose"}, {"id": "vision", "num": "06", "label": "Brand vision"}, {"id": "mission", "num": "07", "label": "Brand mission"}, {"id": "transformation", "num": "08", "label": "Customer transformation"}, {"id": "identity", "num": "09", "label": "Who we are & aren’t"}, {"id": "tone", "num": "10", "label": "Tone of voice"}, {"id": "manifesto", "num": "11", "label": "Brand manifesto"}], "verbal": [{"id": "belief", "num": "01", "label": "Belief & Narrative"}, {"id": "manifesto", "num": "02", "label": "Manifesto"}, {"id": "voice", "num": "03", "label": "Voice"}, {"id": "tone", "num": "04", "label": "Tone"}, {"id": "style", "num": "05", "label": "Style choices"}, {"id": "sentence", "num": "06", "label": "Sentence structure"}, {"id": "copyBeats", "num": "07", "label": "Copy beats"}, {"id": "sampleLines", "num": "08", "label": "Sample lines"}, {"id": "grammar", "num": "09", "label": "Grammar & style"}, {"id": "wordChoices", "num": "10", "label": "Word choices"}, {"id": "microcopy", "num": "11", "label": "Microcopy"}]};
 const TAB_META = {
   visual: {label: "Visual Identity"},
   brand:  {label: "Brand Strategy"},
