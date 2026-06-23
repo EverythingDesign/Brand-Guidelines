@@ -396,13 +396,6 @@
     <div class="brand-sub">Brand guideline</div>
   </div>
   <nav class="tabs" id="tabs">
-    <div class="tab-item" data-tab-item="visual">
-      <a href="#visual" class="tab" data-tab="visual">
-        <span class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg></span>
-        <span>Visual Identity</span>
-      </a>
-      <ul class="sub-nav-inline" data-subnav-for="visual"></ul>
-    </div>
     <div class="tab-item" data-tab-item="brand">
       <a href="#brand" class="tab" data-tab="brand">
         <span class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.7.6 1 1.4 1 2.3v1h6v-1c0-.9.3-1.7 1-2.3A7 7 0 0 0 12 2z"/></svg></span>
@@ -416,6 +409,13 @@
         <span>Verbal Identity</span>
       </a>
       <ul class="sub-nav-inline" data-subnav-for="verbal"></ul>
+    </div>
+    <div class="tab-item" data-tab-item="visual">
+      <a href="#visual" class="tab" data-tab="visual">
+        <span class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg></span>
+        <span>Visual Identity</span>
+      </a>
+      <ul class="sub-nav-inline" data-subnav-for="visual"></ul>
     </div>
   </nav>
   <div class="side-foot">
@@ -2458,7 +2458,7 @@ function goToSection(tabId, sectionId){
 
 function showTab(tabId, opts){
   opts = opts || {};
-  if (!TAB_META[tabId]) tabId = 'visual';
+  if (!TAB_META[tabId]) tabId = 'brand';
   document.querySelectorAll('[data-tab-content]').forEach(el => {
     el.hidden = el.dataset.tabContent !== tabId;
   });
@@ -2486,15 +2486,15 @@ document.querySelectorAll('[data-tab]').forEach(a => {
 });
 
 // Initial render of subnav + boot tab from hash
-renderSubNav('visual');
+renderSubNav('brand');
 (function boot(){
   const h = location.hash.slice(1);
-  if (!h){ showTab('visual'); return; }
+  if (!h){ showTab('brand'); return; }
   const [tab, sec] = h.split('/');
   if (tab && SECTIONS_BY_TAB[tab]){
     if (sec){ goToSection(tab, sec); } else { showTab(tab); }
   } else {
-    showTab('visual');
+    showTab('brand');
   }
 })();
 
