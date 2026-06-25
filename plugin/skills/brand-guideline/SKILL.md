@@ -8,10 +8,13 @@ description: Create a single-file HTML brand guideline (Visual Identity + Brand 
 Produce a single self-contained HTML file with three tabs — **Visual Identity**, **Brand Strategy**, **Verbal Identity** — matching the BQ Brand Guidelines architecture (see `template-reference.html` in this skill folder for a working example).
 
 The output is **one HTML file** that:
-- Sidebar with three icon tabs (eye / lightbulb / megaphone) and inline sub-nav per tab
-- Visual Identity rendered natively in the page
+- Sidebar with three icon tabs (lightbulb / megaphone / eye) and inline sub-nav per tab
+- Tab order is **Brand Strategy, Verbal Identity, Visual Identity** — and **Brand Strategy is the default landing tab** (the page boots to it when there's no URL hash)
+- Visual Identity rendered natively in the page; its sub-sections run **01 Logo · 02 Catchphrase · 03 Typography · 04 Colour · 05 Image treatment · 06 Construction · 07 Don'ts**
 - Brand Strategy + Verbal Identity rendered in iframes via inlined JS Blob URLs (keeps styles/IDs isolated)
-- Images served from a GitHub CDN (jsDelivr) — NOT embedded as base64
+- Raster section images served from a GitHub CDN (jsDelivr) — NOT embedded as base64. Logo + catchphrase assets are committed as real files in `logos/` and `catchphrase/` subfolders and referenced via **same-origin relative paths** (so the per-pane download buttons save directly)
+- Each logo and catchphrase preview pane carries its own **PNG + SVG download buttons** in the top-right corner
+- **No italics anywhere** — a global `i, em { font-style:normal }` reset plus no `font-style:italic` declarations
 - Unified footer: `<Brand> Brand Guidelines    Branding Partner: Everything Design` + live version (GitHub commit count) + last-updated date
 
 ---
@@ -31,7 +34,7 @@ Before writing anything, ask the user the questions below. Use the `AskUserQuest
 6. **Ink / text color (hex)** — primary text — e.g. `#1A1A1A`
 7. **Display font** (headings) — e.g. `P22 Mackinac`. Ask if they have it as a `.otf`/`.ttf`/`.woff2` file, a Google Fonts URL, or want a fallback only.
 8. **Body font** (paragraphs / UI) — e.g. `Indivisible`. Same options.
-9. **Logo files** — ask user to provide the logo image(s) — file paths or URLs. For BQ the set included primary/secondary/tertiary on light/blue/black/mono variants.
+9. **Logo files** — ask user to provide the logo image(s) — file paths or URLs, **PNG + SVG for each**. For BQ the set is TM (full lockup), Shorthand (bq monogram), and Expanded (wordmark), each in Blue / Black / White. These get committed to a `logos/` subfolder and power the per-pane PNG/SVG download buttons.
 10. **Construction & don'ts images** — optional reference shots for "logo construction" + "what not to do" sections.
 11. **Extended palette swatches** — list of name + hex pairs beyond the primary.
 
@@ -70,12 +73,16 @@ Use `template-reference.html` in this skill folder as the architectural referenc
 - CSS `:root` vars (`--bg`, `--ink`, `--accent`, font families)
 - Sidebar logo image
 - Tab labels, sub-nav `SECTIONS_BY_TAB` arrays
-- Data constants inside each tab's `<script>` block (`LOGO_SETS`, `S` for strategy, `V` for verbal, etc.)
+- Data constants inside each tab's `<script>` block (`LOGOS` + `LOGO_TREATMENTS` + `CATCHPHRASES` for visual marks, `S` for strategy, `V` for verbal, etc.)
 
 Key implementation rules learned from the BQ build:
 
-1. **Image hosting**: Never embed raster images as base64 — file gets huge. Save them as files, push to the GitHub repo, link via jsDelivr:
-   `https://cdn.jsdelivr.net/gh/{org}/{repo}@main/{folder}/{filename}` (URL-encode spaces as `%20`)
+1. **Image hosting**: Never embed raster images as base64 — file gets huge. Save them as files, push to the GitHub repo. Two hosting modes:
+   - **Section/photo images** (construction, don'ts, image-treatment) — link via jsDelivr: `https://cdn.jsdelivr.net/gh/{org}/{repo}@main/{folder}/{filename}` (URL-encode spaces as `%20`)
+   - **Logo + catchphrase assets** — commit as real files into `{folder}/logos/` and `{folder}/catchphrase/` with web-safe names (`TM-Logo_Blue.svg`, `Stacked-Closed_Blue.png`, …) and reference them via **same-origin relative paths** (`logos/TM-Logo_Blue.svg`). Same-origin is required so the per-pane download buttons force a real save instead of opening the file. Provide both PNG and SVG for each.
+1a. **Per-pane download buttons**: every logo and catchphrase preview card has a `.dl-pair` in its top-right with two `.logo-dl-btn` links (PNG + SVG) pointing at the same-origin files. Don't use a separate bottom "download strip" — the per-pane buttons replace it.
+1b. **No italics**: keep the global `i, em { font-style:normal }` reset and never add `font-style:italic` (or `<i>`/`<em>` for styling). Emphasis is done with weight/colour, not slant.
+1c. **Section + tab order**: nav tabs run Brand → Verbal → Visual with Brand as the default landing tab. Visual sub-sections run Logo → Catchphrase → Typography → Colour → Image treatment → Construction → Don'ts. Keep `SECTIONS_BY_TAB`, the `sec-num` labels, and the section block order all in sync.
 2. **Iframe isolation**: Brand Strategy + Verbal Identity content lives inside iframes loaded via JS Blob URLs. This avoids ID/CSS collisions between the three docs. The orchestrator injects a `FRAME_SHIM` that hides the standalone doc's sidebar and adds the unified footer.
 3. **Single tab orchestrator**: Only the merged shell may have `SECTIONS_BY_TAB`, `TAB_META`, `showTab`, `renderSubNav`. If you copy from a standalone doc's script, **strip** any duplicate definitions — they cause silent parse errors that break the page (font injection won't run).
 4. **Brand fonts**: Inject via `@font-face` from a `FONTS = {...}` object with base64-encoded font URIs, then apply with CSS vars. The user must provide the font files; otherwise fall back to the closest system font (e.g. Georgia for serif display, system-ui for sans body) and note this clearly to the user.
@@ -103,7 +110,7 @@ If user chose to push to GitHub:
 3. **Clone, add files**:
    - Create the `<folder-name>/` directory
    - Add the merged HTML as both `index.html` (for GitHub Pages root rendering) and `<brand-slug>-brand-guidelines.html` (clearly named for direct download)
-   - Add all image assets to the same folder
+   - Add section/photo images to the folder root; add logo + catchphrase PNG/SVG files into `<folder-name>/logos/` and `<folder-name>/catchphrase/` (referenced via same-origin relative paths so the download buttons work)
 4. **Commit + push**:
    - Use a clear commit message like "Add <Brand> brand guidelines"
    - Author: use `git -c user.email=... -c user.name=...` if local git is unconfigured
@@ -142,6 +149,7 @@ After publishing (or skipping publish), summarise:
 - Exact CSS vars + responsive breakpoints
 - Sidebar markup + SVG icons (eye/lightbulb/megaphone)
 - Orchestrator JS (`showTab`, `renderSubNav`, FRAME_SHIM, live footer fetch)
-- Data-constant shapes (`S`, `LOGO_DISPLAY`, `CONSTRUCTION`, etc.)
+- Data-constant shapes (`S`, `V`, `LOGOS`, `LOGO_TREATMENTS`, `CATCHPHRASES`, `CONSTRUCTION`, etc.)
+- The `dlBtns()` helper + `.logo-dl-btn`/`.dl-pair` markup for per-pane PNG/SVG downloads
 
 When the user wants different icons or tab names, change the labels in the sidebar + `TAB_META` + `SECTIONS_BY_TAB`, but keep the orchestration intact.
