@@ -15,6 +15,7 @@ The output is **one HTML file** that:
 - Raster section images served from a GitHub CDN (jsDelivr) — NOT embedded as base64. Logo + catchphrase assets are committed as real files in `logos/` and `catchphrase/` subfolders and referenced via **same-origin relative paths** (so the per-pane download buttons save directly)
 - Each logo and catchphrase preview pane carries its own **PNG + SVG download buttons** in the top-right corner
 - **No italics anywhere** — a global `i, em { font-style:normal }` reset plus no `font-style:italic` declarations
+- Optional **external resource link(s)** in the sidebar (the `.side-ext` block) — e.g. a shared Drive / Notion / asset folder, styled like a tab and opening in a new tab. Omit the block if the brand has none
 - Unified footer: `<Brand> Brand Guidelines    Branding Partner: Everything Design` + live version (GitHub commit count) + last-updated date
 
 ---
@@ -27,6 +28,7 @@ Before writing anything, ask the user the questions below. Use the `AskUserQuest
 1. **Brand name** (used in title, sidebar, footer) — e.g. "Becoming Quotient", "BQ"
 2. **Short tagline / sub-label** for sidebar (under the logo) — e.g. "Brand guideline"
 3. **Which tabs to include?** — `Visual Identity`, `Brand Strategy`, `Verbal Identity` (any combination; default = all three). If a tab is excluded, drop its sidebar entry entirely.
+4. **External resource link(s) for the sidebar?** (optional) — e.g. a shared Google Drive / Notion / asset folder. For each, capture a **label** (e.g. "GDrive Directory") and a **URL**. These render in the `.side-ext` block below the nav tabs and open in a new tab. If none, delete the `.side-ext` block.
 
 ### Round 2 — Visual identity (skip if tab excluded)
 4. **Primary brand color (hex)** — accent / active state — e.g. `#022781`
@@ -83,6 +85,7 @@ Key implementation rules learned from the BQ build:
 1a. **Per-pane download buttons**: every logo and catchphrase preview card has a `.dl-pair` in its top-right with two `.logo-dl-btn` links (PNG + SVG) pointing at the same-origin files. Don't use a separate bottom "download strip" — the per-pane buttons replace it.
 1b. **No italics**: keep the global `i, em { font-style:normal }` reset and never add `font-style:italic` (or `<i>`/`<em>` for styling). Emphasis is done with weight/colour, not slant.
 1c. **Section + tab order**: nav tabs run Brand → Verbal → Visual with Brand as the default landing tab. Visual sub-sections run Logo → Catchphrase → Typography → Colour → Image treatment → Construction → Don'ts. Keep `SECTIONS_BY_TAB`, the `sec-num` labels, and the section block order all in sync.
+1d. **Sidebar external links** (optional): the `.side-ext` block below the nav holds external resource links (`<a class="tab tab-ext" target="_blank" rel="noopener noreferrer">`) — a folder/utility icon, the label, and a `.tab-ext-arrow`. Fill the `href`/label from the user's Round-1 answer (add one `<a>` per link), or delete the whole `.side-ext` block if there are none. These are plain external links — do NOT wire them into `SECTIONS_BY_TAB`/`showTab`.
 2. **Iframe isolation**: Brand Strategy + Verbal Identity content lives inside iframes loaded via JS Blob URLs. This avoids ID/CSS collisions between the three docs. The orchestrator injects a `FRAME_SHIM` that hides the standalone doc's sidebar and adds the unified footer.
 3. **Single tab orchestrator**: Only the merged shell may have `SECTIONS_BY_TAB`, `TAB_META`, `showTab`, `renderSubNav`. If you copy from a standalone doc's script, **strip** any duplicate definitions — they cause silent parse errors that break the page (font injection won't run).
 4. **Brand fonts**: Inject via `@font-face` from a `FONTS = {...}` object with base64-encoded font URIs, then apply with CSS vars. The user must provide the font files; otherwise fall back to the closest system font (e.g. Georgia for serif display, system-ui for sans body) and note this clearly to the user.
@@ -151,5 +154,6 @@ After publishing (or skipping publish), summarise:
 - Orchestrator JS (`showTab`, `renderSubNav`, FRAME_SHIM, live footer fetch)
 - Data-constant shapes (`S`, `V`, `LOGOS`, `LOGO_TREATMENTS`, `CATCHPHRASES`, `CONSTRUCTION`, etc.)
 - The `dlBtns()` helper + `.logo-dl-btn`/`.dl-pair` markup for per-pane PNG/SVG downloads
+- The `.side-ext` / `.tab-ext` sidebar external-link block (placeholder `href="REPLACE_WITH_EXTERNAL_URL"`)
 
 When the user wants different icons or tab names, change the labels in the sidebar + `TAB_META` + `SECTIONS_BY_TAB`, but keep the orchestration intact.
