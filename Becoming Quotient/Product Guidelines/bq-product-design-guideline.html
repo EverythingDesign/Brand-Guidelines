@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BQ Product Design Guideline</title>
+<style>
+  @font-face{
+    font-family:'P22 Mackinac';
+    src:url('https://cdn.jsdelivr.net/gh/EverythingDesign/Brand-Guidelines@main/Becoming%20Quotient/fonts/P22Mackinac-Book.woff2') format('woff2');
+    font-weight:400; font-style:normal; font-display:swap;
+  }
+  @font-face{
+    font-family:'BecomingSansSerif';
+    src:url('https://cdn.jsdelivr.net/gh/EverythingDesign/Brand-Guidelines@main/Becoming%20Quotient/fonts/BecomingSansSerif-Medium.woff2') format('woff2');
+    font-weight:500; font-style:normal; font-display:swap;
+  }
+  @font-face{
+    font-family:'BecomingSansSerif';
+    src:url('https://cdn.jsdelivr.net/gh/EverythingDesign/Brand-Guidelines@main/Becoming%20Quotient/fonts/BecomingSansSerif-Bold.woff2') format('woff2');
+    font-weight:700; font-style:normal; font-display:swap;
+  }
+
+  :root{
+    --bg:        #FFFFFF;
+    --bg-brand:  #F7F6F2;
+    --ink:       #1A1A1A;
+    --ink-soft:  #5A554A;
+    --accent:    #022781;
+    --accent-tint: rgba(2,39,129,0.06);
+    --accent-tint-str: rgba(2,39,129,0.12);
+    --ochre:     #BE9F59;
+    --cream:     #FFFBD6;
+    --error:     #A33333;
+    --error-tint:#F7EAEA;
+    --success:   #3D6B4A;
+    --success-tint:#EAF1EC;
+    --line:      rgba(26,26,26,0.10);
+    --line-str:  rgba(26,26,26,0.18);
+    --radius:    8px;
+    --font-display:'P22 Mackinac', Georgia, 'Times New Roman', serif;
+    --font-body:   'BecomingSansSerif', system-ui, -apple-system, sans-serif;
+    --shadow-sm: 0 1px 2px rgba(26,26,26,0.06), 0 1px 1px rgba(26,26,26,0.04);
+    --shadow-md: 0 4px 12px rgba(26,26,26,0.08), 0 2px 4px rgba(26,26,26,0.04);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);
+    font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent)}
+  i,em{font-style:normal}
+  h1,h2,h3,h4{font-family:var(--font-display);font-weight:400;margin:0;line-height:1.2}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:0.85em;background:var(--accent-tint);
+    color:var(--accent);padding:1px 6px;border-radius:4px}
+  table{border-collapse:collapse;width:100%}
+
+  /* ── layout ── */
+  .layout{display:grid;grid-template-columns:264px 1fr;min-height:100vh}
+  .sidebar{position:sticky;top:0;height:100vh;overflow-y:auto;border-right:1px solid var(--line);
+    padding:32px 24px;display:flex;flex-direction:column;gap:4px;background:var(--bg-brand)}
+  .sidebar-logo{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+  .sidebar-logo img{height:34px;width:auto}
+  .brand-sub{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);
+    margin:0 0 28px}
+  .nav-group{margin-bottom:18px}
+  .nav-group-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);
+    padding:0 10px;margin-bottom:6px;font-weight:700}
+  .nav-link{display:block;padding:7px 10px;border-radius:5px;font-size:13px;color:var(--ink-soft);
+    text-decoration:none;transition:background .12s,color .12s}
+  .nav-link:hover{background:rgba(26,26,26,.05);color:var(--ink)}
+  .nav-link.active{background:var(--accent);color:#fff}
+  .main{padding:72px 72px 120px;max-width:900px}
+  @media (max-width:860px){
+    .layout{grid-template-columns:1fr}
+    .sidebar{position:relative;height:auto;top:auto}
+    .main{padding:40px 24px 96px}
+  }
+
+  /* ── content primitives ── */
+  .eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);
+    font-weight:700;margin-bottom:10px}
+  h1.page-title{font-size:44px;margin-bottom:16px}
+  .lede{font-size:18px;color:var(--ink-soft);max-width:640px;margin-bottom:0}
+  section.block{margin-top:96px;padding-top:8px}
+  section.block:first-of-type{margin-top:56px}
+  h2.section-title{font-size:30px;margin-bottom:6px}
+  h3.sub-title{font-size:20px;margin:40px 0 14px;padding-top:2px}
+  h3.sub-title:first-of-type{margin-top:28px}
+  p.section-desc{color:var(--ink-soft);font-size:15px;max-width:640px;margin:8px 0 28px}
+  .hr{border:none;border-top:1px solid var(--line);margin:96px 0 0}
+
+  /* callouts */
+  .callout{border-radius:var(--radius);padding:16px 18px;margin:20px 0;font-size:14px;border:1px solid var(--line)}
+  .callout.principle{background:var(--accent-tint);border-color:var(--accent-tint-str)}
+  .callout.principle strong{color:var(--accent)}
+  .dodont{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+  @media (max-width:640px){.dodont{grid-template-columns:1fr}}
+  .dodont .do,.dodont .dont{border-radius:var(--radius);padding:14px 16px;font-size:13.5px;border:1px solid var(--line)}
+  .dodont .do{background:var(--success-tint);border-color:rgba(61,107,74,0.25)}
+  .dodont .dont{background:var(--error-tint);border-color:rgba(163,51,51,0.25)}
+  .dodont .label{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;display:block;margin-bottom:5px}
+  .dodont .do .label{color:var(--success)}
+  .dodont .dont .label{color:var(--error)}
+
+  /* swatches */
+  .swatch-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:14px;margin:18px 0}
+  .swatch{border-radius:var(--radius);overflow:hidden;border:1px solid var(--line)}
+  .swatch-color{height:64px}
+  .swatch-meta{padding:9px 11px;background:var(--bg)}
+  .swatch-name{font-size:12.5px;font-weight:700}
+  .swatch-hex{font-size:11.5px;color:var(--ink-soft);font-family:ui-monospace,monospace}
+  .swatch-use{font-size:11px;color:var(--ink-soft);margin-top:3px}
+
+  /* type scale */
+  .type-row{display:flex;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid var(--line)}
+  .type-row:last-child{border-bottom:none}
+  .type-meta{width:150px;flex-shrink:0;font-size:12px;color:var(--ink-soft);font-family:ui-monospace,monospace}
+  .type-sample{font-family:var(--font-display)}
+
+  /* spacing scale */
+  .space-row{display:flex;align-items:center;gap:16px;padding:8px 0}
+  .space-bar{background:var(--accent);height:14px;border-radius:3px}
+  .space-label{width:90px;font-size:12px;color:var(--ink-soft);font-family:ui-monospace,monospace;flex-shrink:0}
+
+  /* buttons */
+  .btn-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:14px 0}
+  .btn{font-family:var(--font-body);font-weight:700;font-size:14px;padding:10px 20px;border-radius:6px;
+    border:1.5px solid transparent;cursor:pointer;line-height:1.3;min-height:40px}
+  .btn-primary{background:var(--accent);color:#fff}
+  .btn-primary:disabled{background:#B9BEC9;color:#fff;cursor:not-allowed}
+  .btn-secondary{background:transparent;color:var(--accent);border-color:var(--accent)}
+  .btn-tertiary{background:transparent;color:var(--accent);border-color:transparent;padding-left:6px;padding-right:6px;text-decoration:underline}
+  .btn-destructive{background:var(--error);color:#fff}
+  .btn-sm{padding:6px 14px;font-size:13px;min-height:32px}
+
+  /* forms */
+  .field{max-width:340px;margin:16px 0}
+  .field label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}
+  .field .req{color:var(--error)}
+  .field input{width:100%;font-family:var(--font-body);font-size:14px;padding:9px 12px;
+    border:1.5px solid var(--line-str);border-radius:6px;min-height:40px}
+  .field input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+  .field .help{font-size:12px;color:var(--ink-soft);margin-top:5px}
+  .field.error input{border-color:var(--error)}
+  .field .err-msg{font-size:12px;color:var(--error);margin-top:5px;font-weight:600}
+
+  /* nav mockups */
+  .mock{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:16px 0;box-shadow:var(--shadow-sm)}
+  .mock-topnav{display:flex;align-items:center;gap:24px;padding:12px 20px;background:#fff;border-bottom:1px solid var(--line)}
+  .mock-topnav .logo-dot{width:20px;height:20px;border-radius:4px;background:var(--accent)}
+  .mock-topnav .item{font-size:13px;color:var(--ink-soft);font-weight:600}
+  .mock-topnav .item.active{color:var(--accent)}
+  .mock-sidenav{display:flex}
+  .mock-sidenav .rail{width:160px;background:var(--bg-brand);padding:14px;border-right:1px solid var(--line)}
+  .mock-sidenav .rail .item{font-size:12.5px;padding:7px 10px;border-radius:5px;color:var(--ink-soft);margin-bottom:2px}
+  .mock-sidenav .rail .item.active{background:var(--accent);color:#fff;font-weight:700}
+  .mock-sidenav .canvas{flex:1;padding:20px;background:#fff;min-height:100px;color:var(--ink-soft);font-size:12.5px}
+  .breadcrumb{font-size:12.5px;color:var(--ink-soft);margin:14px 0}
+  .breadcrumb .sep{margin:0 6px;opacity:.5}
+  .breadcrumb .current{color:var(--ink);font-weight:700}
+
+  /* card */
+  .card-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+  @media (max-width:640px){.card-row{grid-template-columns:1fr}}
+  .card{border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow-sm);background:#fff}
+  .card h4{font-size:15px;font-family:var(--font-body);font-weight:700;margin-bottom:6px}
+  .card p{font-size:13px;color:var(--ink-soft);margin:0 0 14px}
+
+  /* modal mock */
+  .modal-mock{position:relative;background:#3a3a3a10;border-radius:var(--radius);padding:40px 20px;
+    display:flex;justify-content:center;margin:16px 0;background:repeating-linear-gradient(135deg,#f4f4f2,#f4f4f2 10px,#eeeeeb 10px,#eeeeeb 20px)}
+  .modal-box{background:#fff;border-radius:10px;box-shadow:var(--shadow-md);padding:24px;width:280px}
+  .modal-box h4{font-size:15px;margin-bottom:8px;font-family:var(--font-body);font-weight:700}
+  .modal-box p{font-size:12.5px;color:var(--ink-soft);margin:0 0 16px}
+
+  /* table mock */
+  .table-mock{width:100%;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:16px 0}
+  .table-mock table{font-size:13px}
+  .table-mock th{text-align:left;background:var(--bg-brand);padding:10px 14px;font-size:11.5px;
+    text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft)}
+  .table-mock td{padding:10px 14px;border-top:1px solid var(--line)}
+  .table-mock tr:hover td{background:var(--accent-tint)}
+
+  /* alerts / toast */
+  .alert{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:6px;font-size:13px;
+    margin:10px 0;border:1px solid transparent}
+  .alert .dot{width:8px;height:8px;border-radius:50%;margin-top:4px;flex-shrink:0}
+  .alert.success{background:var(--success-tint);color:#204831}
+  .alert.success .dot{background:var(--success)}
+  .alert.error{background:var(--error-tint);color:#5c1f1f}
+  .alert.error .dot{background:var(--error)}
+  .alert.warning{background:#FBF3E3;color:#5c451a}
+  .alert.warning .dot{background:var(--ochre)}
+  .alert.info{background:var(--accent-tint);color:var(--accent)}
+  .alert.info .dot{background:var(--accent)}
+
+  /* skeleton */
+  .skeleton{background:linear-gradient(90deg,#eee 25%,#f5f5f5 37%,#eee 63%);background-size:400% 100%;
+    animation:shimmer 1.4s ease infinite;border-radius:4px}
+  @keyframes shimmer{0%{background-position:100% 0}100%{background-position:0 0}}
+
+  /* responsive frame demo */
+  .bp-row{display:flex;gap:14px;align-items:flex-end;margin:20px 0;flex-wrap:wrap}
+  .bp-frame{border:1.5px solid var(--line-str);border-radius:6px;background:var(--bg-brand);text-align:center;
+    font-size:11px;color:var(--ink-soft);padding-top:6px}
+
+  /* quick reference */
+  .qr-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:20px}
+  @media (max-width:640px){.qr-grid{grid-template-columns:1fr}}
+  .qr-col h4{font-size:13px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;font-family:var(--font-body)}
+  .qr-col.yes h4{color:var(--success)}
+  .qr-col.no h4{color:var(--error)}
+  .qr-list{list-style:none;margin:0;padding:0;font-size:13.5px}
+  .qr-list li{padding:6px 0 6px 20px;position:relative;border-bottom:1px solid var(--line)}
+  .qr-list li:last-child{border-bottom:none}
+  .qr-col.yes li::before{content:"✓";position:absolute;left:0;color:var(--success);font-weight:700}
+  .qr-col.no li::before{content:"✕";position:absolute;left:0;color:var(--error);font-weight:700}
+
+  .token-table{font-size:13px;margin:16px 0}
+  .token-table th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+    color:var(--ink-soft);padding:8px 12px;border-bottom:1.5px solid var(--line-str)}
+  .token-table td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+
+  .footer{margin-top:100px;padding-top:24px;border-top:1px solid var(--line);display:flex;
+    justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:11.5px;color:var(--ink-soft)}
+</style>
+</head>
+<body>
+<div class="layout">
+
+  <nav class="sidebar">
+    <div class="sidebar-logo">
+      <img src="https://cdn.jsdelivr.net/gh/EverythingDesign/Brand-Guidelines@main/Becoming%20Quotient/logos/Shorthand-Logo_Blue.png" alt="BQ">
+      <span style="font-family:var(--font-display);font-size:17px;">Becoming Quotient</span>
+    </div>
+    <p class="brand-sub">Product Design Guideline</p>
+
+    <div class="nav-group">
+      <div class="nav-group-label">Start</div>
+      <a class="nav-link" data-nav href="#start">How to use this</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-label">Foundations</div>
+      <a class="nav-link" data-nav href="#color">Color</a>
+      <a class="nav-link" data-nav href="#type">Typography</a>
+      <a class="nav-link" data-nav href="#spacing">Spacing &amp; grid</a>
+      <a class="nav-link" data-nav href="#imagery">Icons &amp; imagery</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-label">Components</div>
+      <a class="nav-link" data-nav href="#buttons">Buttons</a>
+      <a class="nav-link" data-nav href="#forms">Forms &amp; inputs</a>
+      <a class="nav-link" data-nav href="#navigation">Navigation</a>
+      <a class="nav-link" data-nav href="#cards">Cards</a>
+      <a class="nav-link" data-nav href="#modals">Modals &amp; overlays</a>
+      <a class="nav-link" data-nav href="#tables">Tables &amp; lists</a>
+      <a class="nav-link" data-nav href="#feedback">Feedback &amp; alerts</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-label">Patterns</div>
+      <a class="nav-link" data-nav href="#responsive">Responsive layout</a>
+      <a class="nav-link" data-nav href="#states">Empty, loading &amp; error states</a>
+      <a class="nav-link" data-nav href="#onboarding">Onboarding</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-label">Standards</div>
+      <a class="nav-link" data-nav href="#accessibility">Accessibility</a>
+      <a class="nav-link" data-nav href="#content">Content &amp; microcopy</a>
+      <a class="nav-link" data-nav href="#reference">Quick reference</a>
+    </div>
+  </nav>
+
+  <main class="main">
+
+    <section id="start" class="block" style="margin-top:8px">
+      <p class="eyebrow">Companion to the BQ Brand Guidelines</p>
+      <h1 class="page-title">Product Design Guideline</h1>
+      <p class="lede">A practical playbook for building consistent, usable BQ product screens — written for anyone
+        shipping UI, not just designers. It leans on the BQ brand where that helps recognition, and leans on
+        standard UX convention everywhere users' expectations matter more than brand expression.</p>
+
+      <div class="callout principle">
+        <strong>The one rule that resolves every judgment call:</strong> brand shows up in color, type, and
+        voice — usability rules (contrast, feedback, predictable patterns) are never negotiable. If a brand
+        treatment would make something harder to read, slower to use, or less accessible, usability wins.
+      </div>
+
+      <h3 class="sub-title">When brand leads vs. when convention leads</h3>
+      <table class="token-table">
+        <tr><th>Surface</th><th>Brand leads</th><th>Convention leads</th></tr>
+        <tr><td>Marketing pages, empty states, onboarding, hero moments</td>
+            <td>Paper Beige background, P22 Mackinac headlines, ink-blue accents, real-people photography</td>
+            <td>—</td></tr>
+        <tr><td>Dense product UI — dashboards, tables, forms, settings</td>
+            <td>Ink-blue accent for interactive elements, BecomingSansSerif for all text</td>
+            <td>White canvas (not beige), standard component patterns, no display serif in UI chrome</td></tr>
+        <tr><td>Status &amp; system feedback — errors, success, warnings</td>
+            <td>Colors are drawn from a BQ-consistent, muted palette</td>
+            <td>Red = error, green = success, amber = warning — never remapped, color is never the only signal</td></tr>
+        <tr><td>Navigation, forms, tables, modals</td>
+            <td>Accent color for active/selected state only</td>
+            <td>Structure, spacing, and interaction follow this guide's component specs exactly</td></tr>
+      </table>
+      <p class="section-desc" style="margin-top:20px">Every component below ships as a live example, not just a
+        description — copy the pattern, don't reinterpret it.</p>
+    </section>
+
+    <!-- ============ FOUNDATIONS ============ -->
+
+    <section id="color" class="block">
+      <p class="eyebrow">Foundations</p>
+      <h2 class="section-title">Color</h2>
+      <p class="section-desc">One accent, one brand-warm secondary, and a small set of semantic colors that follow
+        universal convention rather than brand preference. Semantic colors below are already tuned to sit
+        comfortably inside the BQ palette.</p>
+
+      <h3 class="sub-title">Core palette</h3>
+      <div class="swatch-row">
+        <div class="swatch"><div class="swatch-color" style="background:#022781"></div>
+          <div class="swatch-meta"><div class="swatch-name">Ink Blue</div><div class="swatch-hex">#022781</div>
+          <div class="swatch-use">Primary accent — CTAs, links, active states, focus</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#1A1A1A"></div>
+          <div class="swatch-meta"><div class="swatch-name">Ink</div><div class="swatch-hex">#1A1A1A</div>
+          <div class="swatch-use">Primary text on light surfaces</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#5A554A"></div>
+          <div class="swatch-meta"><div class="swatch-name">Ink Soft</div><div class="swatch-hex">#5A554A</div>
+          <div class="swatch-use">Secondary text, captions, placeholders</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#F7F6F2;border-bottom:1px solid var(--line)"></div>
+          <div class="swatch-meta"><div class="swatch-name">Paper Beige</div><div class="swatch-hex">#F7F6F2</div>
+          <div class="swatch-use">Brand-forward surfaces only — not dense UI</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#BE9F59"></div>
+          <div class="swatch-meta"><div class="swatch-name">Ochre</div><div class="swatch-hex">#BE9F59</div>
+          <div class="swatch-use">Sparing highlight — badges, illustration, caution accent</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#FFFBD6"></div>
+          <div class="swatch-meta"><div class="swatch-name">Cream</div><div class="swatch-hex">#FFFBD6</div>
+          <div class="swatch-use">Low-emphasis highlight backgrounds (tooltips, info chips)</div></div></div>
+      </div>
+
+      <h3 class="sub-title">Semantic (system) colors</h3>
+      <p class="section-desc">These carry meaning users already know from every other product they use. Keep them
+        exactly as specified — remapping "error" away from red, for example, costs more in confusion than it gains
+        in brand consistency.</p>
+      <div class="swatch-row">
+        <div class="swatch"><div class="swatch-color" style="background:#3D6B4A"></div>
+          <div class="swatch-meta"><div class="swatch-name">Success</div><div class="swatch-hex">#3D6B4A</div>
+          <div class="swatch-use">Confirmations, completed states</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#A33333"></div>
+          <div class="swatch-meta"><div class="swatch-name">Error</div><div class="swatch-hex">#A33333</div>
+          <div class="swatch-use">Validation errors, destructive actions</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#BE9F59"></div>
+          <div class="swatch-meta"><div class="swatch-name">Warning</div><div class="swatch-hex">#BE9F59</div>
+          <div class="swatch-use">Caution, needs-attention states</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#022781"></div>
+          <div class="swatch-meta"><div class="swatch-name">Info</div><div class="swatch-hex">#022781</div>
+          <div class="swatch-use">Neutral system messages, tips</div></div></div>
+      </div>
+
+      <div class="dodont">
+        <div class="do"><span class="label">Do</span>Use Paper Beige for onboarding, empty states, and marketing
+          surfaces where a brand mood matters.</div>
+        <div class="dont"><span class="label">Don't</span>Use Paper Beige as the background for dashboards or
+          tables — off-white beige under long reading sessions reduces perceived contrast versus true white.</div>
+      </div>
+      <div class="dodont">
+        <div class="do"><span class="label">Do</span>Reserve Ink Blue for things users can act on: buttons, links,
+          active nav, focus rings.</div>
+        <div class="dont"><span class="label">Don't</span>Paint large decorative blocks in Ink Blue — it reads as
+          "clickable" and trains users to distrust the color.</div>
+      </div>
+
+      <h3 class="sub-title">Contrast minimums</h3>
+      <p class="section-desc">Every color pairing above meets WCAG AA when used as specified: Ink on white/beige
+        is 14.9:1, Ink Blue on white is 8.6:1, Error red on white is 6.1:1. If you introduce a new tint, check it
+        against <code>4.5:1</code> for text and <code>3:1</code> for UI components before shipping — see
+        <a href="#accessibility">Accessibility</a>.</p>
+    </section>
+
+    <section id="type" class="block">
+      <p class="eyebrow">Foundations</p>
+      <h2 class="section-title">Typography</h2>
+      <p class="section-desc">Two typefaces, two jobs. P22 Mackinac carries brand voice at large sizes; it is not a
+        UI font. BecomingSansSerif (the product/UI sans) does everything else — labels, body copy, tables, forms,
+        buttons.</p>
+
+      <div class="dodont">
+        <div class="do"><span class="label">Do</span>Use P22 Mackinac for page headlines and hero moments (32px
+          and above), where brand recognition matters most.</div>
+        <div class="dont"><span class="label">Don't</span>Set body copy, table data, form labels, or buttons in
+          P22 Mackinac — serif at small sizes and only one available weight hurts legibility and hierarchy in
+          dense UI.</div>
+      </div>
+
+      <h3 class="sub-title">Type scale</h3>
+      <div class="type-row"><div class="type-meta">Display / 44·1.2</div>
+        <div class="type-sample" style="font-size:44px">Page title</div></div>
+      <div class="type-row"><div class="type-meta">H1 / 32·1.25</div>
+        <div class="type-sample" style="font-size:32px">Section heading</div></div>
+      <div class="type-row"><div class="type-meta">H2 / 24·1.3</div>
+        <div class="type-sample" style="font-size:24px">Subsection heading</div></div>
+      <div class="type-row"><div class="type-meta">H3 / 18·1.4 · sans</div>
+        <div class="type-sample" style="font-size:18px;font-family:var(--font-body);font-weight:700">Card / component title</div></div>
+      <div class="type-row"><div class="type-meta">Body / 15·1.6 · sans</div>
+        <div class="type-sample" style="font-size:15px;font-family:var(--font-body)">Body copy, table cells, descriptions</div></div>
+      <div class="type-row"><div class="type-meta">Small / 13·1.5 · sans</div>
+        <div class="type-sample" style="font-size:13px;font-family:var(--font-body);color:var(--ink-soft)">Helper text, captions, metadata</div></div>
+      <div class="type-row"><div class="type-meta">Micro / 11·1.4 · sans</div>
+        <div class="type-sample" style="font-size:11px;font-family:var(--font-body);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)">Eyebrows, labels, tags</div></div>
+
+      <h3 class="sub-title">Rules of thumb</h3>
+      <div class="dodont">
+        <div class="do"><span class="label">Do</span>Keep body text between 14–16px. Never set readable paragraph
+          text below 13px.</div>
+        <div class="dont"><span class="label">Don't</span>Use more than 3 type sizes on a single screen — pick
+          from the scale above, don't invent one-off sizes.</div>
+      </div>
+      <div class="dodont">
+        <div class="do"><span class="label">Do</span>Left-align body text and UI labels; keep line length under
+          ~75 characters for paragraphs.</div>
+        <div class="dont"><span class="label">Don't</span>Center-align body copy or use italics — BQ's own type
+          rule is no italics anywhere.</div>
+      </div>
+    </section>
+
+    <section id="spacing" class="block">
+      <p class="eyebrow">Foundations</p>
+      <h2 class="section-title">Spacing &amp; grid</h2>
+      <p class="section-desc">One spacing unit, always a multiple of 4px. Consistent spacing does more for
+        "looking designed" than any single color or font choice.</p>
+
+      <h3 class="sub-title">Spacing scale</h3>
+      <div class="space-row"><div class="space-label">4&nbsp;·&nbsp;xs</div><div class="space-bar" style="width:4px"></div></div>
+      <div class="space-row"><div class="space-label">8&nbsp;·&nbsp;sm</div><div class="space-bar" style="width:8px"></div></div>
+      <div class="space-row"><div class="space-label">12&nbsp;·&nbsp;md</div><div class="space-bar" style="width:12px"></div></div>
+      <div class="space-row"><div class="space-label">16&nbsp;·&nbsp;base</div><div class="space-bar" style="width:16px"></div></div>
+      <div class="space-row"><div class="space-label">24&nbsp;·&nbsp;lg</div><div class="space-bar" style="width:24px"></div></div>
+      <div class="space-row"><div class="space-label">32&nbsp;·&nbsp;xl</div><div class="space-bar" style="width:32px"></div></div>
+      <div class="space-row"><div class="space-label">48&nbsp;·&nbsp;2xl</div><div class="space-bar" style="width:48px"></div></div>
+      <div class="space-row"><div class="space-label">64&nbsp;·&nbsp;3xl</div><div class="space-bar" style="width:64px"></div></div>
+      <p class="section-desc" style="margin-top:14px">Use 16px as the default gap between related elements, 24–32px
+        between distinct groups, 48px+ between page sections.</p>
+
+      <h3 class="sub-title">Grid &amp; breakpoints</h3>
+      <table class="token-table">
+        <tr><th>Breakpoint</th><th>Range</th><th>Columns</th><th>Margin</th></tr>
+        <tr><td>Mobile</td><td>&lt; 600px</td><td>4</td><td>16px</td></tr>
+        <tr><td>Tablet</td><td>600–1023px</td><td>8</td><td>24px</td></tr>
+        <tr><td>Desktop</td><td>1024–1439px</td><td>12</td><td>48px</td></tr>
+        <tr><td>Large desktop</td><td>≥ 1440px</td><td>12 (max content 1280px, centered)</td><td>auto</td></tr>
+      </table>
+      <div class="bp-row">
+        <div class="bp-frame" style="width:40px;height:70px">Mobile</div>
+        <div class="bp-frame" style="width:70px;height:52px">Tablet</div>
+        <div class="bp-frame" style="width:110px;height:66px">Desktop</div>
+        <div class="bp-frame" style="width:150px;height:80px">Large</div>
+      </div>
+
+      <h3 class="sub-title">Radius &amp; elevation</h3>
+      <table class="token-table">
+        <tr><th>Token</th><th>Value</th><th>Use</th></tr>
+        <tr><td>Radius</td><td>6px controls, 8px cards/modals, 999px pills</td><td>Never mix radii within one component family</td></tr>
+        <tr><td>Shadow — sm</td><td><code>0 1px 2px rgba(26,26,26,.06)</code></td><td>Cards, inputs at rest</td></tr>
+        <tr><td>Shadow — md</td><td><code>0 4px 12px rgba(26,26,26,.08)</code></td><td>Modals, dropdowns, popovers</td></tr>
+      </table>
+    </section>
+
+    <section id="imagery" class="block">
+      <p class="eyebrow">Foundations</p>
+      <h2 class="section-title">Icons &amp; imagery</h2>
+      <p class="section-desc">Photography is where BQ's brand voice shows up most — real people, natural light, no
+        studio gloss. Icons are functional and should stay quiet.</p>
+      <div class="dodont">
+        <div class="do"><span class="label">Do</span>Pick one icon style (outline, 24px grid, 1.5–2px stroke) and
+          use it everywhere in product UI.</div>
+        <div class="dont"><span class="label">Don't</span>Mix outline and filled icon sets, or pull icons from
+          multiple libraries — inconsistent stroke weight is one of the fastest ways a product looks unpolished.</div>
+      </div>
+      <div class="dodont">
+        <div class="do"><span class="label">Do</span>Use candid, real-people photography (per brand guide) for
+          marketing pages, empty states, and onboarding illustration.</div>
+        <div class="dont"><span class="label">Don't</span>Use stock "corporate handshake" photography or studio-lit
+          portraits — it breaks the brand's documented photographic style.</div>
+      </div>
+    </section>
+
+    <hr class="hr">
+
+    <!-- ============ COMPONENTS ============ -->
+
+    <section id="buttons" class="block">
+      <p class="eyebrow">Components</p>
+      <h2 class="section-title">Buttons</h2>
+      <p class="section-desc">One primary action per screen. Every other action is secondary or tertiary.</p>
+
+      <h3 class="sub-title">Types</h3>
+      <div class="btn-row">
+        <button class="btn btn-primary">Primary action</button>
+        <button class="btn btn-secondary">Secondary action</button>
+        <button class="btn btn-tertiary">Tertiary link</button>
+        <button class="btn btn-destructive">Delete account</button>
+      </div>
+
+      <h3 class="sub-title">States</h3>
+      <div class="btn-row">
+        <button class="btn btn-primary">Default</button>
+        <button class="btn btn-primary" style="background:#011c5e">Hover / active</button>
+        <button class="btn btn-primary" disabled>Disabled</button>
+        <button class="btn btn-primary" style="opacity:.75">Loading…</button>
+        <button class="btn btn-primary btn-sm">Small (32px)</button>
+      </div>
+
+      <div class="dodont">
+        <div class="do"><span class="label">Do</span>Write button labels as verbs that state the outcome: "Save
+          changes", "Create project", "Send invite".</div>
+        <div class="dont"><span class="label">Don't</span>Use vague labels like "Submit", "OK", or "Yes" —
+          they force users to re-read the surrounding context to know what happens.</div>
+      </div>
+      <div class="dodont">
+        <div class="do"><span class="label">Do</span>Keep buttons at minimum 40px tall (44px on touch) with at
+          least 16px horizontal padding.</div>
+        <div class="dont"><span class="label">Don't</span>Put two primary (filled) buttons next to each other —
+          it forces the user to guess which action actually matters.</div>
+      </div>
+    </section>
+
+    <section id="forms" class="block">
+      <p class="eyebrow">Components</p>
+      <h2 class="section-title">Forms &amp; inputs</h2>
+      <p class="section-desc">Labels always visible, errors always specific, focus states always obvious.</p>
+
+      <div class="field">
+        <label>Email address <span class="req">*</span></label>
+        <input type="text" placeholder="you@company.com">
+        <div class="help">We'll send your confirmation here.</div>
+      </div>
+      <div class="field error">
+        <label>Password <span class="req">*</span></label>
+        <input type="text" value="short">
+        <div class="err-msg">Password needs at least 8 characters — you have 5.</div>
+      </div>
+
+      <div class="dodont">
+        <div class="do"><span class="label">Do</span>Put labels above the field, always visible — not only as
+          placeholder text that disappears on input.</div>
+        <div class="dont"><span class="label">Don't</span>Use placeholder text as a substitute for a label. Once a
+          user types, they lose the field's purpose entirely.</div>
+      </div>
+      <div class="dodont">
+        <div class="do"><span class="label">Do</span>Write error messages that state what went wrong and how to
+          fix it: "Password needs at least 8 characters — you have 5."</div>
+        <div class="dont"><span class="label">Don't</span>Show generic errors like "Invalid input" — they leave
+          the user guessing.</div>
+      </div>
+      <div class="dodont">
+        <div class="do"><span class="label">Do</span>Validate on blur or submit, not on every keystroke — errors
+          appearing mid-type feel punitive.</div>
+        <div class="dont"><span class="label">Don't</span>Remove the visible focus outline. Every input needs a
+          visible focus state for keyboard users.</div>
+      </div>
+    </section>
+
+    <section id="navigation" class="block">
+      <p class="eyebrow">Components</p>
+      <h2 class="section-title">Navigation</h2>
+      <p class="section-desc">Active state is always shown with the accent color — never with weight or size
+        changes alone.</p>
+
+      <h3 class="sub-title">Top navigation</h3>
+      <div class="mock">
+        <div class="mock-topnav">
+          <div class="logo-dot"></div>
+          <span class="item active">Dashboard</span>
+          <span class="item">Projects</span>
+          <span class="item">Reports</span>
+          <span class="item">Settings</span>
+        </div>
+      </div>
+
+      <h3 class="sub-title">Sidebar navigation</h3>
+      <div class="mock">
+        <div class="mock-sidenav">
+          <div class="rail">
+            <div class="item active">Overview</div>
+            <div class="item">Team</div>
+            <div class="item">Billing</div>
+            <div class="item">Integrations</div>
+          </div>
+          <div class="canvas">Content canvas</div>
+        </div>
+      </div>
+
+      <h3 class="sub-title">Breadcrumbs</h3>
+      <div class="breadcrumb">Home <span class="sep">/</span> Projects <span class="sep">/</span> <span class="current">Q3 Launch</span></div>
+      <p class="section-desc">Use breadcrumbs once a user is 3+ levels deep. Don't show them on top-level pages.</p>
+
+      <div class="dodont">
+        <div class="do"><span class="label">Do</span>Pick one primary navigation pattern (top bar OR sidebar) per
+          product surface and keep it consistent across every screen.</div>
+        <div class="dont"><span class="label">Don't</span>Collapse sidebar nav to icon-only without labels unless
+          user-tested — icon-only nav is a common source of lost users.</div>
+      </div>
+    </section>
+
+    <section id="cards" class="block">
+      <p class="eyebrow">Components</p>
+      <h2 class="section-title">Cards</h2>
+      <p class="section-desc">Consistent padding and radius across every card in the product — 18–24px internal
+        padding, 8px radius, subtle shadow at rest.</p>
+
+      <div class="card-row">
+        <div class="card">
+          <h4>Project Alpha</h4>
+          <p>Updated 2 hours ago · 4 collaborators</p>
+          <button class="btn btn-secondary btn-sm">Open</button>
+        </div>
+        <div class="card">
+          <h4>Project Beta</h4>
+          <p>Updated yesterday · 2 collaborators</p>
+          <button class="btn btn-secondary btn-sm">Open</button>
+        </div>
+      </div>
+
+      <div class="dodont">
+        <div class="do"><span class="label">Do</span>Make the entire card clickable if it leads to one destination
+          — don't force users to hit a tiny link inside it.</div>
+        <div class="dont"><span class="label">Don't</span>Nest more than one primary action inside a single
+          card — pick the one thing the card is for.</div>
+      </div>
+    </section>
+
+    <section id="modals" class="block">
+      <p class="eyebrow">Components</p>
+      <h2 class="section-title">Modals &amp; overlays</h2>
+      <p class="section-desc">Modals interrupt. Use them only when the user must decide or confirm something
+        before continuing — never for content that could live on the page.</p>
+
+      <div class="modal-mock">
+        <div class="modal-box">
+          <h4>Delete this project?</h4>
+          <p>This can't be undone. All files and history will be permanently removed.</p>
+          <div class="btn-row" style="margin:0">
+            <button class="btn btn-destructive btn-sm">Delete project</button>
+            <button class="btn btn-tertiary btn-sm">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dodont">
+        <div class="do"><span class="label">Do</span>Give every modal one primary action and one clear way to
+          dismiss it (Cancel, Esc key, or backdrop click for non-destructive modals).</div>
+        <div class="dont"><span class="label">Don't</span>Stack a modal on top of another modal. Close the first
+          before opening the next.</div>
+      </div>
+      <div class="dodont">
+        <div class="do"><span class="label">Do</span>Trap keyboard focus inside the modal while it's open, and
+          return focus to the triggering element on close.</div>
+        <div class="dont"><span class="label">Don't</span>Use a modal to show information the user just needs to
+          read — a panel or page section works better and doesn't block the rest of the UI.</div>
+      </div>
+    </section>
+
+    <section id="tables" class="block">
+      <p class="eyebrow">Components</p>
+      <h2 class="section-title">Tables &amp; lists</h2>
+      <p class="section-desc">Scannable rows, clear hierarchy, obvious empty and hover states.</p>
+
+      <div class="table-mock">
+        <table>
+          <tr><th>Name</th><th>Status</th><th>Owner</th><th>Updated</th></tr>
+          <tr><td>Q3 launch plan</td><td>Active</td><td>M. Rao</td><td>2h ago</td></tr>
+          <tr><td>Brand refresh</td><td>In review</td><td>S. Iyer</td><td>1d ago</td></tr>
+          <tr><td>Onboarding audit</td><td>Done</td><td>A. Chen</td><td>3d ago</td></tr>
+        </table>
+      </div>
+
+      <div class="dodont">
+        <div class="do"><span class="label">Do</span>Use pagination (or "load more") past ~50 rows. Infinite
+          scroll works only when users don't need to jump back to a specific row.</div>
+        <div class="dont"><span class="label">Don't</span>Make table rows the only click target for a row-level
+          action — add a visible action button or menu.</div>
+      </div>
+    </section>
+
+    <section id="feedback" class="block">
+      <p class="eyebrow">Components</p>
+      <h2 class="section-title">Feedback &amp; alerts</h2>
+      <p class="section-desc">Match the message's urgency to how disruptive it is. Never rely on color alone —
+        every alert pairs color with an icon/dot and explicit wording.</p>
+
+      <div class="alert success"><div class="dot"></div><div><strong>Changes saved.</strong> Your project settings were updated.</div></div>
+      <div class="alert error"><div class="dot"></div><div><strong>Couldn't save changes.</strong> Check your connection and try again.</div></div>
+      <div class="alert warning"><div class="dot"></div><div><strong>Your plan expires in 3 days.</strong> Renew to avoid losing access.</div></div>
+      <div class="alert info"><div class="dot"></div><div><strong>Tip:</strong> You can invite teammates from Settings → Members.</div></div>
+
+      <table class="token-table" style="margin-top:20px">
+        <tr><th>Pattern</th><th>Use for</th><th>Dismiss</th></tr>
+        <tr><td>Toast (transient, corner)</td><td>Success confirmations after an action</td><td>Auto-dismiss ~4s</td></tr>
+        <tr><td>Inline banner (page-level)</td><td>Persistent state — plan expiring, connection lost</td><td>Manual or condition-based</td></tr>
+        <tr><td>Inline field error</td><td>Form validation</td><td>Clears when fixed</td></tr>
+        <tr><td>Modal confirmation</td><td>Irreversible or high-stakes actions only</td><td>Explicit choice required</td></tr>
+      </table>
+    </section>
+
+    <hr class="hr">
+
+    <!-- ============ PATTERNS ============ -->
+
+    <section id="responsive" class="block">
+      <p class="eyebrow">Patterns</p>
+      <h2 class="section-title">Responsive layout</h2>
+      <p class="section-desc">Design mobile-first: get the single-column case right, then add columns as space
+        allows. Don't design desktop first and shrink it later.</p>
+
+      <div class="dodont">
+        <div class="do"><span class="label">Do</span>Stack multi-column layouts into a single column below 600px;
+          collapse sidebar nav into a bottom bar or hamburger menu.</div>
+        <div class="dont"><span class="label">Don't</span>Shrink touch targets below 44×44px on mobile, even if
+          the equivalent desktop control is smaller.</div>
+      </div>
+      <div class="dodont">
+        <div class="do"><span class="label">Do</span>Let type and spacing scale fluidly between breakpoints rather
+          than jumping abruptly at each one.</div>
+        <div class="dont"><span class="label">Don't</span>Hide core functionality on mobile "to simplify" — move
+          it into a menu instead of removing it.</div>
+      </div>
+    </section>
+
+    <section id="states" class="block">
+      <p class="eyebrow">Patterns</p>
+      <h2 class="section-title">Empty, loading &amp; error states</h2>
+      <p class="section-desc">Every screen that can show data needs three more designs: what it looks like with
+        nothing, while loading, and when something breaks.</p>
+
+      <h3 class="sub-title">Loading — use skeletons, not spinners, for content</h3>
+      <div class="card" style="max-width:340px">
+        <div class="skeleton" style="height:14px;width:60%;margin-bottom:10px"></div>
+        <div class="skeleton" style="height:10px;width:90%;margin-bottom:6px"></div>
+        <div class="skeleton" style="height:10px;width:80%"></div>
+      </div>
+      <p class="section-desc" style="margin-top:10px">Skeletons preserve layout and feel faster than a centered
+        spinner because the user already sees where content will land. Reserve spinners for short (&lt;1s)
+        button-level waits.</p>
+
+      <h3 class="sub-title">Empty state</h3>
+      <div class="card" style="text-align:center;padding:32px">
+        <div style="font-size:28px;margin-bottom:8px">＋</div>
+        <h4>No projects yet</h4>
+        <p>Create your first project to start tracking work.</p>
+        <button class="btn btn-primary btn-sm">Create project</button>
+      </div>
+
+      <div class="dodont">
+        <div class="do"><span class="label">Do</span>Give empty states a specific next action, not just a
+          description of what's missing.</div>
+        <div class="dont"><span class="label">Don't</span>Show a bare "No data" message with no path forward.</div>
+      </div>
+    </section>
+
+    <section id="onboarding" class="block">
+      <p class="eyebrow">Patterns</p>
+      <h2 class="section-title">Onboarding</h2>
+      <p class="section-desc">Teach inside the product, in context, rather than in front of it.</p>
+      <div class="dodont">
+        <div class="do"><span class="label">Do</span>Use progressive disclosure — a short setup checklist, tooltips
+          on first use, or a single welcome screen with a clear first action.</div>
+        <div class="dont"><span class="label">Don't</span>Force new users through a 6-step modal tour before they've
+          touched the product. Most of it will be forgotten before it's relevant.</div>
+      </div>
+      <div class="dodont">
+        <div class="do"><span class="label">Do</span>Let users skip or dismiss onboarding at any point and resume
+          later from Settings or Help.</div>
+        <div class="dont"><span class="label">Don't</span>Block core functionality behind an onboarding flow that
+          can't be exited.</div>
+      </div>
+    </section>
+
+    <hr class="hr">
+
+    <!-- ============ STANDARDS ============ -->
+
+    <section id="accessibility" class="block">
+      <p class="eyebrow">Standards</p>
+      <h2 class="section-title">Accessibility essentials</h2>
+      <p class="section-desc">Non-negotiable minimums — these aren't "nice to have," they determine whether part
+        of your audience can use the product at all.</p>
+
+      <table class="token-table">
+        <tr><th>Rule</th><th>Minimum</th></tr>
+        <tr><td>Text contrast</td><td>4.5:1 for normal text, 3:1 for large text (18px+/14px bold+)</td></tr>
+        <tr><td>UI component contrast</td><td>3:1 for icons, borders, and input outlines against their background</td></tr>
+        <tr><td>Touch targets</td><td>44×44px minimum on touch devices, 40×40px minimum on desktop</td></tr>
+        <tr><td>Focus visibility</td><td>Every interactive element shows a visible focus ring on keyboard nav</td></tr>
+        <tr><td>Keyboard access</td><td>Every action reachable by mouse must also work via keyboard alone</td></tr>
+        <tr><td>Color independence</td><td>Never use color as the only signal — pair with icon, label, or pattern</td></tr>
+        <tr><td>Alt text</td><td>Every meaningful image has descriptive alt text; decorative images use empty alt</td></tr>
+        <tr><td>Motion</td><td>Respect <code>prefers-reduced-motion</code> — offer a static alternative to animation</td></tr>
+      </table>
+
+      <div class="dodont">
+        <div class="do"><span class="label">Do</span>Associate every form label with its input using
+          <code>&lt;label for&gt;</code> so screen readers announce it correctly.</div>
+        <div class="dont"><span class="label">Don't</span>Communicate an error with red border color alone — this
+          example pairs red with an icon-equivalent dot and explicit text, see <a href="#feedback">Feedback</a>.</div>
+      </div>
+    </section>
+
+    <section id="content" class="block">
+      <p class="eyebrow">Standards</p>
+      <h2 class="section-title">Content &amp; microcopy</h2>
+      <p class="section-desc">Product copy is measured and direct — plain language over cleverness, specific over
+        generic, matching BQ's brand voice of restraint.</p>
+
+      <div class="dodont">
+        <div class="do"><span class="label">Do</span>Use sentence case for all UI labels, buttons, and headings:
+          "Create new project", not "Create New Project."</div>
+        <div class="dont"><span class="label">Don't</span>Use Title Case or ALL CAPS for buttons and labels
+          (small uppercase eyebrows/tags are the one intentional exception).</div>
+      </div>
+      <div class="dodont">
+        <div class="do"><span class="label">Do</span>Write errors as: what happened + why (if useful) + what to do
+          next.</div>
+        <div class="dont"><span class="label">Don't</span>Use exclamation points, or blame the user ("You entered
+          an invalid value").</div>
+      </div>
+      <div class="dodont">
+        <div class="do"><span class="label">Do</span>Keep confirmation dialogs to one direct sentence: "Delete this
+          project? This can't be undone."</div>
+        <div class="dont"><span class="label">Don't</span>Use jargon, idioms, or internal team terms in user-facing
+          copy — write for someone using the product for the first time.</div>
+      </div>
+    </section>
+
+    <section id="reference" class="block">
+      <p class="eyebrow">Standards</p>
+      <h2 class="section-title">Quick reference</h2>
+      <p class="section-desc">The condensed version — for when you already know the guide and just need a fast
+        check before shipping.</p>
+
+      <div class="qr-grid">
+        <div class="qr-col yes">
+          <h4>Always</h4>
+          <ul class="qr-list">
+            <li>One primary button per screen</li>
+            <li>Visible focus states on every control</li>
+            <li>Specific, actionable error messages</li>
+            <li>Labels above form fields, always visible</li>
+            <li>4.5:1 text contrast minimum</li>
+            <li>44px minimum touch targets</li>
+            <li>Sentence case for UI copy</li>
+            <li>Skeletons for content loading, spinners for quick actions</li>
+          </ul>
+        </div>
+        <div class="qr-col no">
+          <h4>Never</h4>
+          <ul class="qr-list">
+            <li>Two primary (filled) buttons side by side</li>
+            <li>Placeholder text used as the only label</li>
+            <li>Color as the sole signal for status</li>
+            <li>Paper Beige background on dense/data UI</li>
+            <li>P22 Mackinac below 18–20px or in UI chrome</li>
+            <li>Stacked modals</li>
+            <li>Onboarding flows with no skip/exit</li>
+            <li>Mixed icon styles in the same product</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      <span>BQ Product Design Guideline · Companion to the Brand Guidelines</span>
+      <span>Practical playbook · Not a full design-system spec</span>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  const links = document.querySelectorAll('[data-nav]');
+  const sections = Array.from(links).map(l => document.querySelector(l.getAttribute('href')));
+  function setActive(){
+    let current = sections[0];
+    const y = window.scrollY + 120;
+    sections.forEach(s => { if (s && s.offsetTop <= y) current = s; });
+    links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + current.id));
+  }
+  window.addEventListener('scroll', setActive, {passive:true});
+  setActive();
+</script>
+</body>
+</html>
