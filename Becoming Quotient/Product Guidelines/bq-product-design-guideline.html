@@ -31,10 +31,17 @@
     --accent-tint-str: rgba(2,39,129,0.12);
     --ochre:     #BE9F59;
     --cream:     #FFFBD6;
-    --error:     #A33333;
-    --error-tint:#F7EAEA;
-    --success:   #3D6B4A;
-    --success-tint:#EAF1EC;
+    --success:   #2A9F4B;
+    --success-tint:#E7F5EB;
+    --success-text:#204831;
+    --error:     #C53232;
+    --error-tint:#FBEAEA;
+    --error-text:#5c1f1f;
+    --warning:   #D2A339;
+    --warning-tint:#FBF1DD;
+    --warning-text:#5c451a;
+    --info:      #23479F;
+    --info-tint: #EAEDF7;
     --line:      rgba(26,26,26,0.10);
     --line-str:  rgba(26,26,26,0.18);
     --radius:    8px;
@@ -45,7 +52,7 @@
   }
   *{box-sizing:border-box}
   html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);
-    font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+    font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
   a{color:var(--accent)}
   i,em{font-style:normal}
   h1,h2,h3,h4{font-family:var(--font-display);font-weight:400;margin:0;line-height:1.2}
@@ -84,7 +91,7 @@
   h2.section-title{font-size:30px;margin-bottom:6px}
   h3.sub-title{font-size:20px;margin:40px 0 14px;padding-top:2px}
   h3.sub-title:first-of-type{margin-top:28px}
-  p.section-desc{color:var(--ink-soft);font-size:15px;max-width:640px;margin:8px 0 28px}
+  p.section-desc{color:var(--ink-soft);font-size:16px;max-width:640px;margin:8px 0 28px}
   .hr{border:none;border-top:1px solid var(--line);margin:96px 0 0}
 
   /* callouts */
@@ -94,11 +101,11 @@
   .dodont{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
   @media (max-width:640px){.dodont{grid-template-columns:1fr}}
   .dodont .do,.dodont .dont{border-radius:var(--radius);padding:14px 16px;font-size:13.5px;border:1px solid var(--line)}
-  .dodont .do{background:var(--success-tint);border-color:rgba(61,107,74,0.25)}
-  .dodont .dont{background:var(--error-tint);border-color:rgba(163,51,51,0.25)}
+  .dodont .do{background:var(--success-tint);border-color:rgba(42,159,75,0.3)}
+  .dodont .dont{background:var(--error-tint);border-color:rgba(197,50,50,0.25)}
   .dodont .label{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;display:block;margin-bottom:5px}
-  .dodont .do .label{color:var(--success)}
-  .dodont .dont .label{color:var(--error)}
+  .dodont .do .label{color:var(--success-text)}
+  .dodont .dont .label{color:var(--error-text)}
 
   /* swatches */
   .swatch-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:14px;margin:18px 0}
@@ -161,14 +168,14 @@
   .card-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
   @media (max-width:640px){.card-row{grid-template-columns:1fr}}
   .card{border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow-sm);background:#fff}
-  .card h4{font-size:15px;font-family:var(--font-body);font-weight:700;margin-bottom:6px}
+  .card h4{font-size:16px;font-family:var(--font-body);font-weight:700;margin-bottom:6px}
   .card p{font-size:13px;color:var(--ink-soft);margin:0 0 14px}
 
   /* modal mock */
   .modal-mock{position:relative;background:#3a3a3a10;border-radius:var(--radius);padding:40px 20px;
     display:flex;justify-content:center;margin:16px 0;background:repeating-linear-gradient(135deg,#f4f4f2,#f4f4f2 10px,#eeeeeb 10px,#eeeeeb 20px)}
   .modal-box{background:#fff;border-radius:10px;box-shadow:var(--shadow-md);padding:24px;width:280px}
-  .modal-box h4{font-size:15px;margin-bottom:8px;font-family:var(--font-body);font-weight:700}
+  .modal-box h4{font-size:16px;margin-bottom:8px;font-family:var(--font-body);font-weight:700}
   .modal-box p{font-size:12.5px;color:var(--ink-soft);margin:0 0 16px}
 
   /* table mock */
@@ -183,14 +190,14 @@
   .alert{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:6px;font-size:13px;
     margin:10px 0;border:1px solid transparent}
   .alert .dot{width:8px;height:8px;border-radius:50%;margin-top:4px;flex-shrink:0}
-  .alert.success{background:var(--success-tint);color:#204831}
+  .alert.success{background:var(--success-tint);color:var(--success-text)}
   .alert.success .dot{background:var(--success)}
-  .alert.error{background:var(--error-tint);color:#5c1f1f}
+  .alert.error{background:var(--error-tint);color:var(--error-text)}
   .alert.error .dot{background:var(--error)}
-  .alert.warning{background:#FBF3E3;color:#5c451a}
-  .alert.warning .dot{background:var(--ochre)}
-  .alert.info{background:var(--accent-tint);color:var(--accent)}
-  .alert.info .dot{background:var(--accent)}
+  .alert.warning{background:var(--warning-tint);color:var(--warning-text)}
+  .alert.warning .dot{background:var(--warning)}
+  .alert.info{background:var(--info-tint);color:var(--info)}
+  .alert.info .dot{background:var(--info)}
 
   /* skeleton */
   .skeleton{background:linear-gradient(90deg,#eee 25%,#f5f5f5 37%,#eee 63%);background-size:400% 100%;
@@ -206,13 +213,13 @@
   .qr-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:20px}
   @media (max-width:640px){.qr-grid{grid-template-columns:1fr}}
   .qr-col h4{font-size:13px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;font-family:var(--font-body)}
-  .qr-col.yes h4{color:var(--success)}
-  .qr-col.no h4{color:var(--error)}
+  .qr-col.yes h4{color:var(--success-text)}
+  .qr-col.no h4{color:var(--error-text)}
   .qr-list{list-style:none;margin:0;padding:0;font-size:13.5px}
   .qr-list li{padding:6px 0 6px 20px;position:relative;border-bottom:1px solid var(--line)}
   .qr-list li:last-child{border-bottom:none}
-  .qr-col.yes li::before{content:"✓";position:absolute;left:0;color:var(--success);font-weight:700}
-  .qr-col.no li::before{content:"✕";position:absolute;left:0;color:var(--error);font-weight:700}
+  .qr-col.yes li::before{content:"✓";position:absolute;left:0;color:var(--success-text);font-weight:700}
+  .qr-col.no li::before{content:"✕";position:absolute;left:0;color:var(--error-text);font-weight:700}
 
   .token-table{font-size:13px;margin:16px 0}
   .token-table th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.06em;
@@ -297,8 +304,8 @@
             <td>Ink-blue accent for interactive elements, BecomingSansSerif for all text</td>
             <td>White canvas (not beige), standard component patterns, no display serif in UI chrome</td></tr>
         <tr><td>Status &amp; system feedback — errors, success, warnings</td>
-            <td>Colors are drawn from a BQ-consistent, muted palette</td>
-            <td>Red = error, green = success, amber = warning — never remapped, color is never the only signal</td></tr>
+            <td>—</td>
+            <td>Fixed system colors (below), never remapped to brand hues — color is never the only signal</td></tr>
         <tr><td>Navigation, forms, tables, modals</td>
             <td>Accent color for active/selected state only</td>
             <td>Structure, spacing, and interaction follow this guide's component specs exactly</td></tr>
@@ -312,9 +319,9 @@
     <section id="color" class="block">
       <p class="eyebrow">Foundations</p>
       <h2 class="section-title">Color</h2>
-      <p class="section-desc">One accent, one brand-warm secondary, and a small set of semantic colors that follow
-        universal convention rather than brand preference. Semantic colors below are already tuned to sit
-        comfortably inside the BQ palette.</p>
+      <p class="section-desc">The accent is the exact BQ brand color — never substitute a near-blue. Semantic
+        (system) colors are fixed, standardized values independent of the brand palette, so status meaning stays
+        instantly recognizable to anyone who has used any other product before.</p>
 
       <h3 class="sub-title">Core palette</h3>
       <div class="swatch-row">
@@ -343,17 +350,17 @@
         exactly as specified — remapping "error" away from red, for example, costs more in confusion than it gains
         in brand consistency.</p>
       <div class="swatch-row">
-        <div class="swatch"><div class="swatch-color" style="background:#3D6B4A"></div>
-          <div class="swatch-meta"><div class="swatch-name">Success</div><div class="swatch-hex">#3D6B4A</div>
+        <div class="swatch"><div class="swatch-color" style="background:#2A9F4B"></div>
+          <div class="swatch-meta"><div class="swatch-name">Success</div><div class="swatch-hex">#2A9F4B</div>
           <div class="swatch-use">Confirmations, completed states</div></div></div>
-        <div class="swatch"><div class="swatch-color" style="background:#A33333"></div>
-          <div class="swatch-meta"><div class="swatch-name">Error</div><div class="swatch-hex">#A33333</div>
+        <div class="swatch"><div class="swatch-color" style="background:#C53232"></div>
+          <div class="swatch-meta"><div class="swatch-name">Error</div><div class="swatch-hex">#C53232</div>
           <div class="swatch-use">Validation errors, destructive actions</div></div></div>
-        <div class="swatch"><div class="swatch-color" style="background:#BE9F59"></div>
-          <div class="swatch-meta"><div class="swatch-name">Warning</div><div class="swatch-hex">#BE9F59</div>
+        <div class="swatch"><div class="swatch-color" style="background:#D2A339"></div>
+          <div class="swatch-meta"><div class="swatch-name">Warning</div><div class="swatch-hex">#D2A339</div>
           <div class="swatch-use">Caution, needs-attention states</div></div></div>
-        <div class="swatch"><div class="swatch-color" style="background:#022781"></div>
-          <div class="swatch-meta"><div class="swatch-name">Info</div><div class="swatch-hex">#022781</div>
+        <div class="swatch"><div class="swatch-color" style="background:#23479F"></div>
+          <div class="swatch-meta"><div class="swatch-name">Info</div><div class="swatch-hex">#23479F</div>
           <div class="swatch-use">Neutral system messages, tips</div></div></div>
       </div>
 
@@ -369,11 +376,20 @@
         <div class="dont"><span class="label">Don't</span>Paint large decorative blocks in Ink Blue — it reads as
           "clickable" and trains users to distrust the color.</div>
       </div>
+      <div class="dodont">
+        <div class="do"><span class="label">Do</span>Use the semantic hex values as-is for icons, dots, badges,
+          buttons, and backgrounds — they only need to clear 3:1 there, which they do.</div>
+        <div class="dont"><span class="label">Don't</span>Set small status text directly in Success or Warning
+          color on white — Warning in particular sits at ~2.3:1, well under the 4.5:1 text minimum. Pair status
+          text with the darker on-white shade shown in the <a href="#feedback">alert examples</a> instead.</div>
+      </div>
 
       <h3 class="sub-title">Contrast minimums</h3>
-      <p class="section-desc">Every color pairing above meets WCAG AA when used as specified: Ink on white/beige
-        is 14.9:1, Ink Blue on white is 8.6:1, Error red on white is 6.1:1. If you introduce a new tint, check it
-        against <code>4.5:1</code> for text and <code>3:1</code> for UI components before shipping — see
+      <p class="section-desc">Ink on white/beige is 14.9:1, Ink Blue on white is 8.6:1, Info on white is 8.5:1,
+        Error on white is 5.4:1 — all clear 4.5:1 and are safe as text. Success (3.4:1) and Warning (2.3:1) clear
+        the 3:1 non-text minimum for icons/badges/fills but fall short of 4.5:1 for text — use their darker
+        text-safe variants (see alerts) for anything readable. If you introduce a new tint, check it against
+        <code>4.5:1</code> for text and <code>3:1</code> for UI components before shipping — see
         <a href="#accessibility">Accessibility</a>.</p>
     </section>
 
@@ -399,10 +415,10 @@
         <div class="type-sample" style="font-size:32px">Section heading</div></div>
       <div class="type-row"><div class="type-meta">H2 / 24·1.3</div>
         <div class="type-sample" style="font-size:24px">Subsection heading</div></div>
-      <div class="type-row"><div class="type-meta">H3 / 18·1.4 · sans</div>
-        <div class="type-sample" style="font-size:18px;font-family:var(--font-body);font-weight:700">Card / component title</div></div>
-      <div class="type-row"><div class="type-meta">Body / 15·1.6 · sans</div>
-        <div class="type-sample" style="font-size:15px;font-family:var(--font-body)">Body copy, table cells, descriptions</div></div>
+      <div class="type-row"><div class="type-meta">H3 / 20·1.4 · sans</div>
+        <div class="type-sample" style="font-size:20px;font-family:var(--font-body);font-weight:700">Card / component title</div></div>
+      <div class="type-row"><div class="type-meta">Body / 16·1.6 · sans</div>
+        <div class="type-sample" style="font-size:16px;font-family:var(--font-body)">Body copy, table cells, descriptions</div></div>
       <div class="type-row"><div class="type-meta">Small / 13·1.5 · sans</div>
         <div class="type-sample" style="font-size:13px;font-family:var(--font-body);color:var(--ink-soft)">Helper text, captions, metadata</div></div>
       <div class="type-row"><div class="type-meta">Micro / 11·1.4 · sans</div>
@@ -410,8 +426,8 @@
 
       <h3 class="sub-title">Rules of thumb</h3>
       <div class="dodont">
-        <div class="do"><span class="label">Do</span>Keep body text between 14–16px. Never set readable paragraph
-          text below 13px.</div>
+        <div class="do"><span class="label">Do</span>Use Body (16px) for paragraph copy and Small (13px) for
+          captions and helper text. Never set readable paragraph text below 13px.</div>
         <div class="dont"><span class="label">Don't</span>Use more than 3 type sizes on a single screen — pick
           from the scale above, don't invent one-off sizes.</div>
       </div>
@@ -470,9 +486,21 @@
       <h2 class="section-title">Icons &amp; imagery</h2>
       <p class="section-desc">Photography is where BQ's brand voice shows up most — real people, natural light, no
         studio gloss. Icons are functional and should stay quiet.</p>
+
+      <h3 class="sub-title">Recommended icon sets</h3>
+      <table class="token-table">
+        <tr><th>Library</th><th>Style</th><th>Use it because</th></tr>
+        <tr><td><a href="https://lucide.dev/icons/" target="_blank" rel="noopener">Lucide</a></td>
+            <td>Single outline style, 24px grid, ~1.5–2px stroke</td>
+            <td>Default choice — open source, consistent stroke weight out of the box, huge coverage</td></tr>
+        <tr><td><a href="https://hugeicons.com/styles" target="_blank" rel="noopener">Hugeicons</a></td>
+            <td>Multiple families (stroke, duotone, bulk, twotone)</td>
+            <td>Pick this if a screen needs more visual weight than a thin outline can carry — commit to exactly
+              one of its styles product-wide, don't mix families</td></tr>
+      </table>
       <div class="dodont">
-        <div class="do"><span class="label">Do</span>Pick one icon style (outline, 24px grid, 1.5–2px stroke) and
-          use it everywhere in product UI.</div>
+        <div class="do"><span class="label">Do</span>Pick one icon set and one style within it (e.g. Lucide
+          outline, or Hugeicons "Stroke Rounded") and use it everywhere in product UI.</div>
         <div class="dont"><span class="label">Don't</span>Mix outline and filled icon sets, or pull icons from
           multiple libraries — inconsistent stroke weight is one of the fastest ways a product looks unpolished.</div>
       </div>
